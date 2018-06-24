@@ -9,14 +9,12 @@ function calculateRate(weight, mailtype) {
 }
 
 
-
-
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
 
-  .get('/', function (req, res) {
+  .get('/calculatePostage', function (req, res) {
     lettertype = req.query.lettertype;
     weight = req.query.weight;
 
@@ -94,8 +92,8 @@ express()
   } else if (lettertype = "first-class") {
     console.log("first-class");
     result = firstClassCost[weight];
-
   }
+
   console.log("The result is" + result);
   
   res.render('pages/postage-result', {
@@ -104,7 +102,3 @@ express()
 
 })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-
-
-
-
