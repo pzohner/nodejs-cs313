@@ -14,6 +14,9 @@ express()
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
 
+    .get('/', (req, res) => 
+    res.send("connected to my app"))
+    
     //   /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?)
     .get('/getGameCharacters', function (req, res) {
         gameid = req.query.gameid;
