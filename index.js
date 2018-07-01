@@ -139,7 +139,7 @@ express()
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
     function getGameCharactersdb(gameid, callback) {
-        var sql = "SELECT * from characters;"
+        var sql = "SELECT * from character;"
         var params = []
 
         pool.query(sql, params, function (err, result) {
