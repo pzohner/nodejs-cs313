@@ -28,7 +28,7 @@ express()
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
     function getGameCharactersdb(gameid, callback) {
-        var sql = "SELECT * from person;"
+        var sql = "SELECT * from characters;"
         var params = []
 
         pool.query(sql, params, function (err, result) {
