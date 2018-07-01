@@ -4,8 +4,8 @@ const PORT = process.env.PORT || 5000
 
 const { Pool } = require('pg');
 
-// connectionString = 'postgres://porter:$otpWug2@localhost:5432/person';
-connectionString = 'postgres://porter:$otpWug2@localhost:5432/person';
+
+connectionString = process.env.DATABASE_URL;
 
 const pool = new Pool({connectionString: connectionString});
 
