@@ -33,7 +33,7 @@ app.get('/addCharacter', function (req, res) {
 
     addCharacterDB(characterName, imgPath, userid, function (err, result) {
         if (err) {
-            res.send("failed to add character to database");
+            res.send(err);
         } else {
             res.json(result);
         }
