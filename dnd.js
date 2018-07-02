@@ -39,7 +39,7 @@ app.get('/', (req, res) => res.send("connected to my app"));
     });
 
     function changeMapdb (newtableImgPath, gameid, callback) {
-        var sql = "UPDATE games set imgPath = $1::text where id = $2::int";
+        var sql = "UPDATE games set tableimgpath = $1::text where id = $2::int";
         var params = [newtableImgPath, gameid];
 
         pool.query(sql, params, function(err, result) {
