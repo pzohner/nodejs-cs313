@@ -30,6 +30,7 @@ app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => res.render('pages/login'));
     
+
 /* getCharacters - returns json list of all characters belong to that user */
 app.get('/getCharacters', function(req, res) {
     var userid = req.query.userid;
@@ -45,6 +46,55 @@ app.get('/getCharacters', function(req, res) {
         }
     })
 });
+
+/* getGames - returns json list of all games -> used so user can pick which one to join */
+app.get('/getGames', function(req, res) {
+
+    var sql = "SELECT * from games;";
+    var params = [];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).json(result.rows);
+        }
+    })
+});
+
+
+/* getDMs - returns json list of all dms belong to that user */
+app.get('/getDMs', function(req, res) {
+    var userid = req.query.userid;
+
+    var sql = "SELECT * from dm where userid = $1::int;";
+    var params = [userid];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).json(result.rows);
+        }
+    })
+});
+
+/* getNPCs - returns json list of all dms belong to that user */
+app.get('/getNPCs', function(req, res) {
+    var dmid = req.query.dmid;
+
+    var sql = "SELECT * from NPC where dmid = $1::int;";
+    var params = [dmid];  
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).json(result.rows);
+        }
+    })
+});
+
 
 /* changeMap - changes the currently displayed map */
     app.get('/changeMap', function(req, res) {
