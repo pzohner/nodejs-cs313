@@ -1,3 +1,19 @@
+# DND Endpoints:
+- /getCharacters - gets JSON of all charactesr user has created
+- /getDms - gets JSOn of all DM's user has created
+- /getNPCs - gets JSON of all NPC's DM has created
+- /getGames - gets JSON list of all games
+- /getGameCharacters – gets all characters related to specific game
+- /changeImg – changes the image of the map
+- /addUser – adds a new user (method: POST)
+- / addCharacter – adds a character to the database
+- /addDM – adds a DM to the database
+- /addNPC – adds an NPC to the database
+- /move – records players move into the db
+
+
+
+
 # node-js-getting-started
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
@@ -39,15 +55,3 @@ For more information about using Node.js on Heroku, see these Dev Center article
 - [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
 
 
-# DND Endpoints:
-- /getCharacters - gets JSON of all charactesr user has created
-- /getDms - gets JSOn of all DM's user has created
-- /getNPCs - gets JSON of all NPC's DM has created
-- /getGames - gets JSON list of all games
-- /getGameCharacters – gets all characters related to specific game
-- /changeImg – changes the image of the map
-- /addUser – adds a new user (method: POST)
-- / addCharacter – adds a character to the database
-- /addDM – adds a DM to the database
-- /addNPC – adds an NPC to the database
-- /move – records players move into the db
