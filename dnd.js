@@ -256,6 +256,35 @@ app.post('/addUser', function(req, res) {
             }
         });
     }
+
+
+/* /move - records a players move into the database - its counter part is getGameCharacters, which returns position of each characters */
+app.get('/move', function(req, res) {
+    var characterName = req.query.characterName;
+    var posy = req.query.posy;
+    var posx = req.query.posx;
+
+    moveCharacter (characterName, posx, posy, function (err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    });
+});
+
+function moveCharacter(characterName, posx, posy, callback) {
+    var sql = "UPDATE table characters set posx = $1::int posy = $2::int where avatarname = $3::text";
+    var params = [posx, posy, characterName];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            callback(err, null);
+        } else (
+            callback(null, characterName + ' position updated successfully')
+        )
+    });
+}
     // //   /getLocation – Returns a JSON object which is a list of charactername and coordinates on the map
     // .get('/getLocation', function (req,res) {
     //     console.log("getLocation called correctly :D"); 
