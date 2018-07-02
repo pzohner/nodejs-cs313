@@ -1,9 +1,9 @@
 const express = require('express')
 var app = express();
-const path = require('path')
+const path = require('path');
 
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const { Pool } = require('pg');
 
@@ -13,10 +13,9 @@ const pool = new Pool({connectionString: connectionString});
 
 // app.use(express.static(path.join(__dirname, 'public')))
 // app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
+// app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => 
-    res.send("connected to my app"))
+app.get('/', (req, res) => res.send("connected to my app"));
     
     //   /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?)
 // app.get('/getGameCharacters', function (req, res) {
