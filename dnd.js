@@ -24,14 +24,11 @@ const pool = new Pool({connectionString: connectionString});
 
 app.get('/', (req, res) => res.send("connected to my app"));
     
+app.get('/changeMap', function(req, res) {
+    var newtableImgPath = req.query.tableImgPath;
+    var gameid = req.query.gameid;
 
-
-app.get('/addCharacter', function (req, res) {
-    var characterName = req.query.characterName;
-    var imgPath = req.query.imgPath;
-    var userid = req.query.userid; 
-
-    addCharacterDB(characterName, imgPath, userid, function (err, result) {
+    changeMapdb(newtableImgPath, gameid, function (err, result) {
         if (err) {
             res.send(err);
         } else {
@@ -40,7 +37,35 @@ app.get('/addCharacter', function (req, res) {
     });
 });
 
-function addCharacterDB(characterName, imgPath, userid, callback) {
+function changeMapdb (newtableImgPath, gameid, callback) {
+    var sql = "UPDATE table games set imgPath = $1::text where gameid = $2::int";
+    var params = [newtableImgPath, gameid];
+
+    pool.query(sql, params, function(err, result) {
+            if (err) {
+                callback("failed to change map" + err);
+            } else {
+                callback(null, result.rows);
+            }
+    });
+}
+
+
+app.get('/addCharacter', function (req, res) {
+    var characterName = req.query.characterName;
+    var imgPath = req.query.imgPath;
+    var userid = req.query.userid; 
+
+    addCharacterdb(characterName, imgPath, userid, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+function addCharacterdb(characterName, imgPath, userid, callback) {
     var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
     var params = [characterName, 0, 0, imgPath, userid, 0];
 
@@ -57,7 +82,7 @@ function addCharacterDB(characterName, imgPath, userid, callback) {
 
 /* /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?) */
 app.get('/getGameCharacters', function (req, res) {
-    gameid = req.query.gameid;
+    var gameid = req.query.gameid;
 
     console.log("getGameCharacters called correctly :D");
     getGameCharactersdb(gameid, function(err, result) {
