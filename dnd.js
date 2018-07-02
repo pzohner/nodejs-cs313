@@ -37,7 +37,7 @@ app.get('/getGameCharacters', function (req, res) {
 })
 
 function getGameCharactersdb(gameid, callback) {
-    var sql = "SELECT * from person;"
+    var sql = "SELECT * from character;"
     var params = []
 
     pool.query(sql, params, function (err, result) {
