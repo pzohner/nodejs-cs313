@@ -52,7 +52,7 @@ app.get('/getGameCharacters', function (req, res) {
 })
 
 function getGameCharactersdb(gameid, callback) {
-    var sql = "SELECT * from character where gameid = gameid::int;";
+    var sql = "SELECT * from characters where gameid = gameid::int;";
     var params = [gameid];
 
     pool.query(sql, params, function (err, result) {
