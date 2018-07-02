@@ -79,7 +79,7 @@ app.get('/addNPC', function(req, res) {
     npcimgpath = req.query.npcimgpath;
 
     // created sql statement and assign parameters
-    var sql = "INSERT INTO NPC (npcname, dmid, npcimgpath) VALUES ($1::text, $2::int, $3::text)";
+    var sql = "INSERT INTO NPC (npcname, dmid, npcimagepath) VALUES ($1::text, $2::int, $3::text)";
     var params = [npcname, dmid, npcimgpath];
     
     // execute the query
@@ -87,7 +87,7 @@ app.get('/addNPC', function(req, res) {
         if (err) {
             res.status(500).send(err);
         } else (
-            res.status(200).send("Successfully added NPC" + dmname + " to the database")
+            res.status(200).send("Successfully added NPC" + npcname + " to the database")
         )
     });
 });
