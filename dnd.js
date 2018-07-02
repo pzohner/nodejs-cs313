@@ -266,7 +266,7 @@ app.get('/move', function(req, res) {
 
     moveCharacter (characterName, posx, posy, function (err, result) {
         if (err) {
-            res.status(500).send(err);
+            res.status(500).send("Database failed" + err);
         } else {
             res.status(200).send(result);
         }
