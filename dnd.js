@@ -24,88 +24,90 @@ const pool = new Pool({connectionString: connectionString});
 
 app.get('/', (req, res) => res.send("connected to my app"));
     
-app.get('/changeMap', function(req, res) {
-    var newtableImgPath = req.query.tableImgPath;
-    var gameid = req.query.gameid;
+/* changeMap - changes the currently displayed map */
+    app.get('/changeMap', function(req, res) {
+        var newtableImgPath = req.query.tableImgPath;
+        var gameid = req.query.gameid;
 
-    changeMapdb(newtableImgPath, gameid, function (err, result) {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(200).json({success: 200, result: result});
-        }
-    });
-});
-
-function changeMapdb (newtableImgPath, gameid, callback) {
-    var sql = "UPDATE games set imgPath = $1::text where gameid = $2::int";
-    var params = [newtableImgPath, gameid];
-
-    pool.query(sql, params, function(err, result) {
+        changeMapdb(newtableImgPath, gameid, function (err, result) {
             if (err) {
-                callback("failed to change map" + err);
+                res.status(500).send(err);
             } else {
+                res.status(200).json({success: 200, result: result});
+            }
+        });
+    });
+
+    function changeMapdb (newtableImgPath, gameid, callback) {
+        var sql = "UPDATE games set imgPath = $1::text where id = $2::int";
+        var params = [newtableImgPath, gameid];
+
+        pool.query(sql, params, function(err, result) {
+                if (err) {
+                    callback("failed to change map: " + err);
+                } else {
+                    callback(null, result.rows);
+                }
+        });
+    }
+
+/* addCharacter - adds a character to the database */
+
+    app.get('/addCharacter', function (req, res) {
+        var characterName = req.query.characterName;
+        var imgPath = req.query.imgPath;
+        var userid = req.query.userid; 
+
+        addCharacterdb(characterName, imgPath, userid, function (err, result) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).json(result);
+            }
+        });
+    });
+
+    function addCharacterdb(characterName, imgPath, userid, callback) {
+        var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
+        var params = [characterName, 0, 0, imgPath, userid, 0];
+
+        pool.query(sql, params, function(err, result) {
+            if (err) {
+                console.log("Failed to add Character to db;");
+                callback("failed to add character to database " + err, null);
+            } else {
+                console.log("added character" + JSON.stringify(result.rows));
                 callback(null, result.rows);
             }
-    });
-}
-
-
-app.get('/addCharacter', function (req, res) {
-    var characterName = req.query.characterName;
-    var imgPath = req.query.imgPath;
-    var userid = req.query.userid; 
-
-    addCharacterdb(characterName, imgPath, userid, function (err, result) {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(200).json(result);
-        }
-    });
-});
-
-function addCharacterdb(characterName, imgPath, userid, callback) {
-    var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
-    var params = [characterName, 0, 0, imgPath, userid, 0];
-
-    pool.query(sql, params, function(err, result) {
-        if (err) {
-            console.log("Failed to add Character to db;");
-            callback("failed to add character to database " + err, null);
-        } else {
-            console.log("added character" + JSON.stringify(result.rows));
-            callback(null, result.rows);
-        }
-    });
-}
+        });
+    }
 
 /* /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?) */
-app.get('/getGameCharacters', function (req, res) {
-    var gameid = req.query.gameid;
+    app.get('/getGameCharacters', function (req, res) {
+        var gameid = req.query.gameid;
 
-    console.log("getGameCharacters called correctly :D");
-    getGameCharactersdb(gameid, function(err, result) {
-        console.log("got row with gameid:" + gameid)
-        console.log("Got this result back from the database: " + result);
-        res.json(result)
-    });
-})
+        console.log("getGameCharacters called correctly :D");
+        getGameCharactersdb(gameid, function(err, result) {
+            console.log("got row with gameid:" + gameid)
+            console.log("Got this result back from the database: " + result);
+            res.json(result)
+        });
+    })
 
-function getGameCharactersdb(gameid, callback) {
-    var sql = "SELECT * from characters where gameid = $1::int;";
-    var params = [gameid];
+    function getGameCharactersdb(gameid, callback) {
+        var sql = "SELECT * from characters where gameid = $1::int;";
+        var params = [gameid];
 
-    pool.query(sql, params, function (err, result) {
-        if (err) {
-            console.log("could't get game characters from database");
-            console.log(err);
-        } else {
-            console.log("The result was: " + JSON.stringify(result.rows));
-            callback(null, result.rows)
-        }
-    });
-}
+        pool.query(sql, params, function (err, result) {
+            if (err) {
+                console.log("could't get game characters from database");
+                console.log(err);
+            } else {
+                console.log("The result was: " + JSON.stringify(result.rows));
+                callback(null, result.rows)
+            }
+        });
+    }
     // //   /getLocation – Returns a JSON object which is a list of charactername and coordinates on the map
     // .get('/getLocation', function (req,res) {
     //     console.log("getLocation called correctly :D"); 
