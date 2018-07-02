@@ -24,7 +24,22 @@ const pool = new Pool({connectionString: connectionString});
 
 app.get('/', (req, res) => res.send("connected to my app"));
     
-//   /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?)
+
+
+// app.get('/addCharacter', function (req, res) {
+//     var characterName = req.query.characterName;
+//     var imgPath = req.query.imgPath; 
+
+//     addCharacterDB(characterName, imgPath, function (err, result) {
+
+//     });
+// });
+
+// function addCharacterDB(characterName, imgPath, callback) {
+//     var sql = "INSERT into character (avatarname, posx, posy, imgpath, userid, gameid) VALUES "
+// }
+
+/* /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?) */
 app.get('/getGameCharacters', function (req, res) {
     gameid = req.query.gameid;
 
@@ -37,8 +52,8 @@ app.get('/getGameCharacters', function (req, res) {
 })
 
 function getGameCharactersdb(gameid, callback) {
-    var sql = "SELECT * from character;"
-    var params = []
+    var sql = "SELECT * from character where gameid = gameid::int;";
+    var params = [gameid];
 
     pool.query(sql, params, function (err, result) {
         if (err) {
@@ -47,10 +62,7 @@ function getGameCharactersdb(gameid, callback) {
         } else {
             console.log("The result was: " + JSON.stringify(result.rows));
             callback(null, result.rows)
-
         }
-    
-    
     });
 }
     // //   /getLocation – Returns a JSON object which is a list of charactername and coordinates on the map

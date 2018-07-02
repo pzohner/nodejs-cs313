@@ -2,6 +2,7 @@
 node_modules
 npm-debug.log
 unnecessary_files
+sql-statements.sql
 
 # Local development
 *.env
