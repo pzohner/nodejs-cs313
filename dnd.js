@@ -30,15 +30,15 @@ app.get('/changeMap', function(req, res) {
 
     changeMapdb(newtableImgPath, gameid, function (err, result) {
         if (err) {
-            res.send(err);
+            res.status(500).send(err);
         } else {
-            res.json(result);
+            res.status(200).json({success: 200, result: result});
         }
     });
 });
 
 function changeMapdb (newtableImgPath, gameid, callback) {
-    var sql = "UPDATE table games set imgPath = $1::text where gameid = $2::int";
+    var sql = "UPDATE games set imgPath = $1::text where gameid = $2::int";
     var params = [newtableImgPath, gameid];
 
     pool.query(sql, params, function(err, result) {
@@ -58,9 +58,9 @@ app.get('/addCharacter', function (req, res) {
 
     addCharacterdb(characterName, imgPath, userid, function (err, result) {
         if (err) {
-            res.send(err);
+            res.status(500).send(err);
         } else {
-            res.json(result);
+            res.status(200).json(result);
         }
     });
 });
