@@ -26,18 +26,34 @@ app.get('/', (req, res) => res.send("connected to my app"));
     
 
 
-// app.get('/addCharacter', function (req, res) {
-//     var characterName = req.query.characterName;
-//     var imgPath = req.query.imgPath; 
+app.get('/addCharacter', function (req, res) {
+    var characterName = req.query.characterName;
+    var imgPath = req.query.imgPath;
+    var userid = req.query.userid; 
 
-//     addCharacterDB(characterName, imgPath, function (err, result) {
+    addCharacterDB(characterName, imgPath, userid, function (err, result) {
+        if (err) {
+            res.send("failed to add character to database");
+        } else {
+            res.json(result);
+        }
+    });
+});
 
-//     });
-// });
+function addCharacterDB(characterName, imgPath, userid, callback) {
+    var sql = "INSERT into character (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::string, $2::int, $3::int, $4::string, $5::int, $6::int);"
+    var params = [characterName, 0, 0, imgPath, userid, 0];
 
-// function addCharacterDB(characterName, imgPath, callback) {
-//     var sql = "INSERT into character (avatarname, posx, posy, imgpath, userid, gameid) VALUES "
-// }
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            console.log("Failed to add Character to db;");
+            callback("failled to add character to database", NULL);
+        } else {
+            console.log("added character" + JSON.stringify(result.rows));
+            callback(null, result.rows);
+        }
+    });
+}
 
 /* /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?) */
 app.get('/getGameCharacters', function (req, res) {
