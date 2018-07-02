@@ -47,7 +47,7 @@ function addCharacterDB(characterName, imgPath, userid, callback) {
     pool.query(sql, params, function(err, result) {
         if (err) {
             console.log("Failed to add Character to db;");
-            callback("failled to add character to database", null);
+            callback("failed to add character to database " + err, null);
         } else {
             console.log("added character" + JSON.stringify(result.rows));
             callback(null, result.rows);
