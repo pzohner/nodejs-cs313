@@ -30,6 +30,22 @@ app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => res.render('pages/login'));
     
+/* getCharacters - returns json list of all characters belong to that user */
+app.get('/getCharacters', function(req, res) {
+    var userid = req.query.userid;
+
+    var sql = "SELECT * from characters where userid = $1::int;";
+    var params = [userid];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).json(result.rows);
+        }
+    })
+});
+
 /* changeMap - changes the currently displayed map */
     app.get('/changeMap', function(req, res) {
         // Grab the input from the query string
@@ -87,7 +103,7 @@ app.get('/addNPC', function(req, res) {
         if (err) {
             res.status(500).send(err);
         } else (
-            res.status(200).send("Successfully added NPC" + npcname + " to the database")
+            res.status(200).send("Successfully added NPC: " + npcname)
         )
     });
 });
