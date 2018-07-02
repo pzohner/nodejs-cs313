@@ -1,52 +1,52 @@
 const express = require('express')
+var app = express();
 const path = require('path')
+
 const PORT = process.env.PORT || 5000
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 const { Pool } = require('pg');
-
 
 connectionString = process.env.DATABASE_URL;
 
 const pool = new Pool({connectionString: connectionString});
 
-express()
-    .use(express.static(path.join(__dirname, 'public')))
-    .set('views', path.join(__dirname, 'views'))
-    .set('view engine', 'ejs')
+// app.use(express.static(path.join(__dirname, 'public')))
+// app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
-    .get('/', (req, res) => 
+app.get('/', (req, res) => 
     res.send("connected to my app"))
     
     //   /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?)
-    .get('/getGameCharacters', function (req, res) {
-        gameid = req.query.gameid;
+// app.get('/getGameCharacters', function (req, res) {
+//     gameid = req.query.gameid;
 
-        console.log("getGameCharacters called correctly :D");
-        getGameCharactersdb(gameid, function(err, result) {
-            console.log("got row with gameid:" + gameid)
-            console.log("Got this result back from the database: " + result);
-            res.json(result)
-        });
-    })
-    .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+//     console.log("getGameCharacters called correctly :D");
+//     getGameCharactersdb(gameid, function(err, result) {
+//         console.log("got row with gameid:" + gameid)
+//         console.log("Got this result back from the database: " + result);
+//         res.json(result)
+//     });
+// })
 
-    function getGameCharactersdb(gameid, callback) {
-        var sql = "SELECT * from characters;"
-        var params = []
+// function getGameCharactersdb(gameid, callback) {
+//     var sql = "SELECT * from characters;"
+//     var params = []
 
-        pool.query(sql, params, function (err, result) {
-            if (err) {
-               console.log("could't get game characters from database");
-               console.log(err);
-            } else {
-                console.log("The result was: " + JSON.stringify(result.rows));
-                callback(null, result.rows)
+//     pool.query(sql, params, function (err, result) {
+//         if (err) {
+//             console.log("could't get game characters from database");
+//             console.log(err);
+//         } else {
+//             console.log("The result was: " + JSON.stringify(result.rows));
+//             callback(null, result.rows)
 
-            }
-        
-        
-        });
-    }
+//         }
+    
+    
+//     });
+// }
     // //   /getLocation – Returns a JSON object which is a list of charactername and coordinates on the map
     // .get('/getLocation', function (req,res) {
     //     console.log("getLocation called correctly :D"); 
