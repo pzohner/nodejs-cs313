@@ -274,7 +274,7 @@ app.get('/move', function(req, res) {
 });
 
 function moveCharacter(characterName, posx, posy, callback) {
-    var sql = "UPDATE table characters set posx = $1::int posy = $2::int where avatarname = $3::text";
+    var sql = "UPDATE characters set posx = $1::int, posy = $2::int where avatarname = $3::text";
     var params = [posx, posy, characterName];
 
     pool.query(sql, params, function(err, result) {
