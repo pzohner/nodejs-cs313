@@ -2,6 +2,12 @@ const express = require('express')
 var app = express();
 const path = require('path');
 
+// to send posts
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
+
 // Require my custom config file
 var config = require('./config');
 
@@ -18,38 +24,72 @@ connectionString = process.env.DATABASE_URL || config.connectionString;
 // Create our pool for connections
 const pool = new Pool({connectionString: connectionString});
 
-// app.use(express.static(path.join(__dirname, 'public')))
-// app.set('views', path.join(__dirname, 'views'))
-// app.set('view engine', 'ejs')
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => res.send("connected to my app"));
+app.get('/', (req, res) => res.render(login));
     
 /* changeMap - changes the currently displayed map */
     app.get('/changeMap', function(req, res) {
+        // Grab the input from the query string
         var newtableImgPath = req.query.tableImgPath;
         var gameid = req.query.gameid;
 
+        // create a function with a callback, which will be invoked when the database is finished
         changeMapdb(newtableImgPath, gameid, function (err, result) {
             if (err) {
+                // If an error was returned from the db, send back an
+                // internal server error 500 and the error.
                 res.status(500).send(err);
             } else {
+                // If it worked, send a 200: OK and the result
                 res.status(200).json({success: 200, result: result});
             }
         });
     });
 
+    // execute the database query, calling back to our /changeMap endpoint
     function changeMapdb (newtableImgPath, gameid, callback) {
+
+        // sql query
         var sql = "UPDATE games set tableimgpath = $1::text where id = $2::int";
+
+        // load prepared statement with proper variables
         var params = [newtableImgPath, gameid];
 
+        // execute the query with our pool
         pool.query(sql, params, function(err, result) {
                 if (err) {
+                    // if database returns an error, pass it to the callback
                     callback("failed to change map: " + err);
                 } else {
-                    callback(null, result.rows);
+                    // if successful, error = null, pass back success message
+                    callback(null, "Map changed successfully");
                 }
         });
     }
+
+/* addUser - adds a new user (uses post method because we don't want to expose password in the query string)*/
+app.post('/addUser', function(req, res) {
+    // grab the username and password (password better be encrypted)
+    username = req.body.username;
+    password = req.body.password;
+
+    // created sql statement and assign parameters
+    var sql = "INSERT INTO users (username, password) VALUES ($1::text, $2::text)";
+    var params = [username, password];
+    
+    // execute the query
+    pool.query(sql,params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else (
+            res.status(200).send("Successfully added user" + username + " to the database")
+        )
+    });
+});
+
 
 /* addCharacter - adds a character to the database */
 
