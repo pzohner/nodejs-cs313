@@ -41,7 +41,7 @@ app.get('/addCharacter', function (req, res) {
 });
 
 function addCharacterDB(characterName, imgPath, userid, callback) {
-    var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::string, $2::int, $3::int, $4::string, $5::int, $6::int);"
+    var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
     var params = [characterName, 0, 0, imgPath, userid, 0];
 
     pool.query(sql, params, function(err, result) {
