@@ -70,6 +70,27 @@ app.get('/', (req, res) => res.render('pages/login'));
         });
     }
 
+
+/* addDM - adds a new user (uses post method because we don't want to expose password in the query string)*/
+app.get('/addDM', function(req, res) {
+    // grab the username and password (password better be encrypted)
+    dmname = req.query.dmname;
+    userid = req.query.userid;
+
+    // created sql statement and assign parameters
+    var sql = "INSERT INTO dm (dmname, userid) VALUES ($1::text, $2::int)";
+    var params = [dmname, userid];
+    
+    // execute the query
+    pool.query(sql,params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else (
+            res.status(200).send("Successfully added dm" + dmname + " to the database")
+        )
+    });
+});
+
 /* addUser - adds a new user (uses post method because we don't want to expose password in the query string)*/
 app.post('/addUser', function(req, res) {
     // grab the username and password (password better be encrypted)
