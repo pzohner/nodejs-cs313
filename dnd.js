@@ -71,7 +71,28 @@ app.get('/', (req, res) => res.render('pages/login'));
     }
 
 
-/* addDM - adds a new user (uses post method because we don't want to expose password in the query string)*/
+/* addNPC - adds a new NPC */
+app.get('/addNPC', function(req, res) {
+    // grab the username and password (password better be encrypted)
+    npcname = req.query.npcname;
+    dmid = req.query.dmid;
+    npcimgpath = req.query.npcimgpath;
+
+    // created sql statement and assign parameters
+    var sql = "INSERT INTO NPC (npcname, dmid, npcimgpath) VALUES ($1::text, $2::int, $3::text)";
+    var params = [npcname, dmid, npcimgpath];
+    
+    // execute the query
+    pool.query(sql,params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else (
+            res.status(200).send("Successfully added NPC" + dmname + " to the database")
+        )
+    });
+});
+
+/* addDM - adds a new user */
 app.get('/addDM', function(req, res) {
     // grab the username and password (password better be encrypted)
     dmname = req.query.dmname;
