@@ -76,28 +76,7 @@ function isGameSelected() {
                 <h5 class='tiletitles'> Choose a character...<br>
                     <button id="createCharacterButton" type="button" data-toggle="modal" data-target="#createCharacterModal"> Create a new Character </button><br>
 
-                <!-- Modal -->
-                <div class="modal fade" id="createCharacterModal" role="dialog">
-                    <div class="modal-dialog">
-                    
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create a character</h4>
-                        </div>
-                        <div class="modal-body">
-                            Character name: <input type="text" name='avatarname'>
-                            Upload an image: <input type="file" name='characterpic'>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                    
-                    </div>
-                </div>
-
+                
 
              <!-- <input type="radio" name="player-selection" class="characterradio" onclick="isCharacterSelected()" value="'.$row['avatarname'].'">' . $row['avatarname'] . ' ' . '<img src="'. $row['imgpath'] .'">' . '<br/>'; -->
             </div>
@@ -126,6 +105,28 @@ function isGameSelected() {
             
         
     </div>
+
+    <!-- Create Character Modal -->
+    <div class="modal fade" id="createCharacterModal" role="dialog">
+            <div class="modal-dialog">
+            
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create a character</h4>
+                </div>
+                <div class="modal-body">
+                    Character name: <input type="text" name='avatarname'> <br>
+                    Upload an image: <input type="file" name='characterpic'>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            
+            </div>
+        </div>
 
 </body>
 
