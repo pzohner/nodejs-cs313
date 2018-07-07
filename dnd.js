@@ -38,10 +38,12 @@ app.get('/', (req, res) => res.redirect('/login'));
 // if GET method on login, display login page
 app.route('/login')
     .get(function(req, res) {
+        // must set session variable ONCE, might as well do it at root.
         session = req.session;
         res.render('pages/login');
     })
     .post(function(req, res) {
+        // username and password from /login.ejs form
         var username = req.body.username;
         var password = req.body.password;
 
@@ -55,18 +57,17 @@ app.route('/login')
             } else {
                 for (var i = 0; i < result.rows.length; i++) {
                     if (result.rows[i].username == username && result.rows[i].password == password) {
+                        // If user was successfully authenticated, then lets make them a session.
                         session.username = username;
                         session.password = password;
 
                         console.log("session username: " + session.username);
                         console.log("session password: " + session.password);
 
+                        // successful login!
                         res.status(200).json({'success' : 'Login Successful'});
-                        // res.redirect('/selectionpage');
                     }
                 }
-                
-                // res.status(200).json(result.rows);
             }
         });
 

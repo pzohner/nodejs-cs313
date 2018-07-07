@@ -156,3 +156,12 @@ html, #gameboard, main {
 .tiletitles {
     font-family: 'MedievalSharp', cursive;
 }
+
+/*********************************************
+* modal-footer
+*********************************************/
+.modal-footer {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}

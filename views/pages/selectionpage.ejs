@@ -122,7 +122,7 @@ function isGameSelected() {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                    <button id='createCharacterButton' type="button" class="btn btn-success" data-dismiss="modal">Create Character</button>
+                    <button id='createCharacterButtonModal' type="button" class="btn btn-success" data-dismiss="modal">Create Character</button>
                 </div>
             </div>
             
@@ -131,7 +131,7 @@ function isGameSelected() {
 
 </body>
 <script>
-$('createCharacterButton').click(function() {
+$('createCharacterButtonModal').click(function() {
     $.ajax({
         url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
         type: "GET",
