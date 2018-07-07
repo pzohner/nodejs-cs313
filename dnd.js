@@ -95,7 +95,7 @@ app.route('/selectionpage')
 /* getCharacters - returns json list of all characters belong to that user */
 app.get('/getCharacters', function(req, res) {
     var username = session.username;
-    console.log("got the username from the session variable" + username);
+    console.log("got the username from the session variable: " + username);
     // Get the correct userid
     var sql ="SELECT id from users where username = $1::text";
 
@@ -109,8 +109,8 @@ app.get('/getCharacters', function(req, res) {
             // If we were able to find the correct username and ID, then 
         } else {
             console.log("Got the correct userID");
-            userid = result.rows.id;
-
+            var userid = result.rows.id;
+            console.log("the userID is: " + userid);
             var sql = "SELECT * from characters where userid = $1::int;";
             var params = [userid];
 
