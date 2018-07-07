@@ -48,9 +48,11 @@ app.route('/selectionpage')
                 res.status(500).send(err);
                 // res.redirect('/');
             } else {
-                for (var i = 0; i < result.rows.length; i++) {
-                    console.log("Row in database is" + r);
-                }
+                // for (var i = 0; i < result.rows.length; i++) {
+
+                //     console.log("Row in database is" + r);
+                // }
+                res.status(200).send(result.rows);
                 // res.status(200).json(result.rows);
             }
         });
