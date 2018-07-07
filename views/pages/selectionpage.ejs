@@ -159,7 +159,7 @@ $('#createCharacterButtonModal').click(function() {
         }, 
         statusCode: {
             500: function(res) {
-                alert("Server error: " + res);
+                alert("Server error: " + JSON.stringify(res));
             },
             200: function(res) {
                 alert("successfully added character to database");
