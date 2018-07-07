@@ -119,9 +119,10 @@ app.get('/getCharacters', function(req, res) {
                 } else {
                     res.status(200).json(result.rows);
                 }
-            })
+            });
         }
     });
+});
 
 /* getGames - returns json list of all games -> used so user can pick which one to join */
 app.get('/getGames', function(req, res) {
@@ -505,4 +506,4 @@ function moveCharacter(characterName, posx, posy, callback) {
 // });
 
 // })
-  
+
