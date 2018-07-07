@@ -124,6 +124,30 @@ function isGameSelected() {
             </div>
             
             </div>
+            <script>
+                    // $('#createCharacterButtonModal').click(function() {
+                        $('#createCharacterForm').submit(function(event){
+                            event.preventDefault();
+                        $.ajax({
+                            url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
+                            type: "POST",
+                            data: {
+                                "characterName" : $('[name="avatarname"]').val(),
+                                "imgPath" : $('[name="characterpic"]').val(),
+                            }, 
+                            statusCode: {
+                                500: function(res) {
+                                    alert("Server error: " + JSON.stringify(res));
+                                },
+                                200: function(res) {
+                                    alert("successfully added character to database");
+                                    alert(JSON.stringify(res));
+                    
+                                }
+                            }
+                        });
+                    });
+            </script>
         </div>
 
     <!-- Create DM Profile Modal
