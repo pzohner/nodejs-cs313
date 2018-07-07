@@ -19,7 +19,7 @@ $('#loginform').submit(function(event){
     console.log("called ajax function");
     var data = $('#loginform').serialize();
     $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res) {
-        alert("The server says" + res);
+        alert("The server says" + JSON.parse(res));
     });
 });
 
