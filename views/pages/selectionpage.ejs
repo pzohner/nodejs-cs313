@@ -158,6 +158,9 @@ $('#createCharacterButtonModal').click(function() {
             "characterName" : $('[name="avatarname"]').val(),
             "imgPath" : $('[name="characterpic"]').val(),
         }, 
+        success: function() {
+            alert('successfully added character to database');
+        }
     });
 });
 

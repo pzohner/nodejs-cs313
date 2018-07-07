@@ -282,7 +282,7 @@ app.post('/addUser', function(req, res) {
         // Get the correct userid
         var sql ="SELECT user from users where username = $1::text";
 
-        var params = [username]
+        var params = [username];
 
         pool.query(sql, params, function(err, result) {
             if (err) {
