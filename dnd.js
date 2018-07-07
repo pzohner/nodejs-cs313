@@ -310,7 +310,7 @@ app.post('/addUser', function(req, res) {
                 // If we were able to find the correct username and ID, then 
             } else {
                 console.log("Got the correct userID");
-                userid = result.rows.id;
+                var userid = result.rows.id;
 
                 /****************************************************************************
                 * Execute another sql statement to insert the character to the database 
