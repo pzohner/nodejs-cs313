@@ -28,11 +28,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => res.render('pages/login'));
+// Root will redirect to login page
+app.get('/', (req, res) => res.redirect('/login'));
 
-app.route('/selectionpage')
-    .get(function(req, res) {
-        res.render('pages/selectionpage');
+// if GET method on login, display login page
+app.route('/login')
+    .get(function(req, es) {
+        res.render('pages/login');
     })
     .post(function(req, res) {
         var username = req.body.username;
@@ -44,9 +46,8 @@ app.route('/selectionpage')
         pool.query(sql, params, function(err, result) {
             if (err) {
                 console.log('couldnt connect to database to list users to log into');
-                console.log(err);
                 res.status(500).send(err);
-                // res.redirect('/');
+                res.redirect('/');
             } else {
                 // for (var i = 0; i < result.rows.length; i++) {
 
@@ -59,8 +60,12 @@ app.route('/selectionpage')
 
         console.log("Username: " + username);
         console.log("password: " + password);
+    
+    });
 
-        // res.render('pages/selectionpage');
+app.route('/selectionpage')
+    .get(function(req, res) {
+        res.render('pages/selectionpage');
     });
     
 
