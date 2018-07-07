@@ -11,13 +11,17 @@
         
         // Get list of characters and display them
         $.ajax({
-           url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
+           url: "https://pacific-reef-42179.herokuapp.com/getCharacters",
            type : "GET",
            success: function(data) {
                alert(JSON.stringify(data));
                for (var i = 0; i < data.length; i++)
                 $('#listOfCharacters').append('<input type="radio" name="player-selection" class="characterradio">' + data[i].characterName + '</div>')     
-             }
+             },
+            error: function(data) {
+                alert('could not get the characters');
+                alert(data);
+            }
         });
     });
 
