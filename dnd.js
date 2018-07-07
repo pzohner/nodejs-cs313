@@ -50,9 +50,7 @@ app.route('/login')
                 res.redirect('/');
             } else {
                 for (var i = 0; i < result.rows.length; i++) {
-                    console.log("Row in database is" + r);
-
-                    if (result.rows.username == username && result.rows.password == password) {
+                    if (result.rows[i].username == username && result.rows[i].password == password) {
                         res.status(200).send("Successfully logged on!");
                         res.redirect('/selectionpage');
                     }
