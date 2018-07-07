@@ -109,9 +109,10 @@ app.get('/getCharacters', function(req, res) {
             // If we were able to find the correct username and ID, then 
         } else {
             console.log("Got the correct userID");
-            var userid = result.rows.id;
+            // var userid = result.rows.id;
+            var userid = result.id;
 
-            console.log("rows that we got back: " + result.rows);
+            console.log("rows that we got back: " + JSON.stringify(result));
             console.log("the userID is: " + userid);
             var sql = "SELECT * from characters where userid = $1::int;";
             var params = [userid];
@@ -314,7 +315,7 @@ app.post('/addUser', function(req, res) {
             } else {
                 console.log("Got the correct userID");
                 var userid = result.rows.id;
-
+                console.log("userid to insert" + result.rows.id);
                 /****************************************************************************
                 * Execute another sql statement to insert the character to the database 
                 *****************************************************************************/
