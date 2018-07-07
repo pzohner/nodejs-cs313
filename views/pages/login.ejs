@@ -13,13 +13,22 @@
         <button id="loginbutton" type="submit" > Login </button>
     <!-- onclick="window.location.href='/selectionpage'" -->
     </form>
+    <div id="loginsuccessful"> </div>
 <script> 
 $('#loginform').submit(function(event){
     event.preventDefault();
     console.log("called ajax function");
     var data = $('#loginform').serialize();
-    $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res) {
-        alert("The server says" + JSON.parse(res));
+    $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res, status) {
+        if (status == 200) {
+            $('#loginsuccessful').append(res.success);
+            alert("The server says" + JSON.parse(res));
+
+        } else if (status == 500) {
+            $('#loginsuccessful').append("Error, please try logging in again");
+            alert("The server says" + JSON.parse(res));
+            
+        }
     });
 });
 
