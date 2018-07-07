@@ -49,11 +49,15 @@ app.route('/login')
                 res.status(500).send(err);
                 res.redirect('/');
             } else {
-                // for (var i = 0; i < result.rows.length; i++) {
+                for (var i = 0; i < result.rows.length; i++) {
+                    console.log("Row in database is" + r);
 
-                //     console.log("Row in database is" + r);
-                // }
-                res.status(200).send(result.rows);
+                    if (result.rows.username == username && result.rows.password == password) {
+                        res.status(200).send("Successfully logged on!");
+                        res.redirect('/selectionpage');
+                    }
+                }
+                
                 // res.status(200).json(result.rows);
             }
         });
