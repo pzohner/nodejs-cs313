@@ -19,7 +19,7 @@
                alert("Got the characters!");
             //    alert(JSON.stringify(data));
                for (var i = 0; i < data.length; i++)
-                $('#listOfCharacters').append('<input type="radio" name="player-selection" class="characterradio">' + data[i].avatarname + '</div>')     
+                $('#listOfCharacters').append('<div> <input type="radio" name="player-selection" class="characterradio">' + data[i].avatarname + '</div>')     
              },
             error: function(data) {
                 alert('could not get the characters');
@@ -36,13 +36,31 @@
            success: function(data) {
                alert(JSON.stringify(data));
                for (var i = 0; i < data.length; i++)
-                $('#listOfDMProfiles').append('<input type="radio" name="player-selection" class="dmradio">' + data[i].dmname + '</div>')     
+                $('#listOfDMProfiles').append('<div> <input type="radio" name="player-selection" class="dmradio">' + data[i].dmname + '</div>')     
              },
             error: function(data) {
                 alert('could not get the characters');
                 alert(data);
             }
         });
+
+        /*******************************************
+         *  Get list of games and display them
+         * *****************************************/
+         $.ajax({
+           url: "https://pacific-reef-42179.herokuapp.com/getGames",
+           type : "GET",
+           success: function(data) {
+               alert(JSON.stringify(data));
+               for (var i = 0; i < data.length; i++)
+                $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
+             },
+            error: function(data) {
+                alert('could not get the games');
+                alert(data);
+            }
+        });
+
     });
 
 function isDMSelected() {

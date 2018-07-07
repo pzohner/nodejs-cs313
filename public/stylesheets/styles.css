@@ -176,3 +176,8 @@ html, #gameboard, main {
      display: flex;
      flex-direction:column;
  }
+
+ #listOfGames {
+    display: flex;
+    flex-direction:column;
+ }

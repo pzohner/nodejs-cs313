@@ -182,7 +182,7 @@ app.get('/getDMs', function(req, res) {
     });
 });
 
-/* getNPCs - returns json list of all dms belong to that user */
+/* getNPCs - returns json list of all dms belonging to that user */
 app.get('/getNPCs', function(req, res) {
     var dmid = req.query.dmid;
 
