@@ -23,11 +23,8 @@ $('#loginform').submit(function(event){
         if (status == 'success') {
             $('#loginsuccessful').append(res.success);
 
-            setTimeout(
-            function() 
-            {
+            setTimeout(function() {
                 $(location).attr('href', 'https://pacific-reef-42179.herokuapp.com/selectionpage')
-                
             }, 2000);
             // alert("The server says" + JSON.stringify(res));
 
