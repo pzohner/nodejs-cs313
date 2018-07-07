@@ -22,11 +22,18 @@ $('#loginform').submit(function(event){
     $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res, status) {
         if (status == 'success') {
             $('#loginsuccessful').append(res.success);
-            alert("The server says" + JSON.stringify(res));
+
+            setTimeout(
+            function() 
+            {
+                $(location).attr('href', 'https://pacific-reef-42179.herokuapp.com/selectionpage')
+                
+            }, 2000);
+            // alert("The server says" + JSON.stringify(res));
 
         } else {
             $('#loginsuccessful').append("Error, please try logging in again");
-            alert("The server says" + JSON.stringify(res));
+            // alert("The server says" + JSON.stringify(res));
             
         }
     });
