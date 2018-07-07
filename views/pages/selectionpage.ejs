@@ -158,8 +158,8 @@ $('#createCharacterButtonModal').click(function() {
             "imgPath" : $('[name="characterpic"]').val(),
         }, 
         statusCode: {
-            404: function() {
-                alert( "page not found" );
+            500: function(res) {
+                alert("Server error: " + res);
             },
             200: function(res) {
                 alert("successfully added character to database");
