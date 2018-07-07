@@ -38,11 +38,11 @@ app.get('/', (req, res) => res.redirect('/login'));
 // if GET method on login, display login page
 app.route('/login')
     .get(function(req, res) {
-        var session = req.session;
+        session = req.session;
         res.render('pages/login');
     })
     .post(function(req, res) {
-        var session = req.body.session;
+        session = req.body.session;
         
 
         var username = req.body.username;
