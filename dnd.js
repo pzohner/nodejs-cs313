@@ -277,7 +277,7 @@ app.post('/addUser', function(req, res) {
         });
     });
 
-    function addCharacterdb(characterName, imgPath, userid, callback) {
+    function addCharacterdb(characterName, imgPath, username, callback) {
 
         // Get the correct userid
         var sql ="SELECT id from users where username = $1::text";
