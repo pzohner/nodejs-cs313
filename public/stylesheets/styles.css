@@ -36,7 +36,7 @@ border-color: green;
 border-radius: 25px;
 opacity: 0.5;
 transition-duration: 1s;
-background-image: url(images/paper.jpg);
+background-image: url(../images/paper.jpg);
 }
 
 #game-selection:hover {
