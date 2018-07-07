@@ -33,7 +33,7 @@ app.get('/', (req, res) => res.redirect('/login'));
 
 // if GET method on login, display login page
 app.route('/login')
-    .get(function(req, es) {
+    .get(function(req, res) {
         res.render('pages/login');
     })
     .post(function(req, res) {
