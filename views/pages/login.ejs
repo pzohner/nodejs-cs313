@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <form id='loginform' method='post'> 
+    <form id='loginform'> 
         <span> Please log in </span> 
         Username: <input type="text" name='username' value='porter'>
         Password: <input type="password" name='password' value='myPassword'>
@@ -14,14 +14,15 @@
     <!-- onclick="window.location.href='/selectionpage'" -->
     </form>
 <script> 
-    $('#loginform')
-    .ajaxForm({
-        url : '/login', // or whatever
-        dataType : 'json',
-        success : function (response) {
-            alert("The server says: " + response);
-        }
+$('#loginform').submit(function(event){
+    event.preventDefault();
+    console.log("called ajax function");
+    var data = $('#loginform').serialize();
+    $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res) {
+        alert("The server says" + res);
     });
+});
+
 </script>
 <!-- <% include ../partials/nav.ejs %> -->
 
