@@ -35,6 +35,9 @@ app.set('view engine', 'ejs')
 // Root will redirect to login page
 app.get('/', (req, res) => res.redirect('/login'));
 
+
+
+
 // if GET method on login, display login page
 app.route('/login')
     .get(function(req, res) {
@@ -61,6 +64,11 @@ app.route('/login')
                         session.username = username;
                         session.password = password;
 
+                        app.use(function(req, res, next) {
+                            res.locals.username = req.session.username;
+                            next();
+                          });
+
                         console.log("session username: " + session.username);
                         console.log("session password: " + session.password);
 
@@ -75,6 +83,8 @@ app.route('/login')
         console.log("password: " + password);
     
     });
+
+    
 
 app.route('/selectionpage')
     .get(function(req, res) {
@@ -255,9 +265,10 @@ app.post('/addUser', function(req, res) {
     app.get('/addCharacter', function (req, res) {
         var characterName = req.query.characterName;
         var imgPath = req.query.imgPath;
-        var userid = req.query.userid; 
+        var username = session.username
+        // var userid = req.query.userid; 
 
-        addCharacterdb(characterName, imgPath, userid, function (err, result) {
+        addCharacterdb(characterName, imgPath, username, function (err, result) {
             if (err) {
                 res.status(500).send(err);
             } else {
@@ -267,18 +278,39 @@ app.post('/addUser', function(req, res) {
     });
 
     function addCharacterdb(characterName, imgPath, userid, callback) {
-        var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
-        var params = [characterName, 0, 0, imgPath, userid, 0];
+
+        // Get the correct userid
+        var sql ="SELECT user from users where username = $1::text";
+
+        var params = [username]
 
         pool.query(sql, params, function(err, result) {
             if (err) {
-                console.log("Failed to add Character to db;");
-                callback("failed to add character to database " + err, null);
+                console.log("Couldn't get the correct userID");
+                callback("failed to get correct userid " + err, null);
+                // If we were able to find the correct username and ID, then 
             } else {
-                console.log("added character" + JSON.stringify(result.rows));
-                callback(null, result.rows);
+                console.log("Got the correct userID");
+                userid = result.rows.id;
+
+                /* Execute another sql statement to actually add the character to the database */
+                var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
+                var params = [characterName, 0, 0, imgPath, userid, 0];
+        
+                pool.query(sql, params, function(err, result) {
+                    if (err) {
+                        console.log("Failed to add Character to db;");
+                        callback("failed to add character to database " + err, null);
+                    } else {
+                        console.log("added character" + JSON.stringify(result.rows));
+                        callback(null, result.rows);
+                    }
+                });
+
             }
         });
+
+        
     }
 
 /* /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?) */
