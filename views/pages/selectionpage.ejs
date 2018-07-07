@@ -158,8 +158,15 @@ $('#createCharacterButtonModal').click(function() {
             "characterName" : $('[name="avatarname"]').val(),
             "imgPath" : $('[name="characterpic"]').val(),
         }, 
-        success: function() {
-            alert('successfully added character to database');
+        statusCode: {
+            404: function() {
+                alert( "page not found" );
+            },
+            200: function(res) {
+                alert("successfully added character to database");
+                alert(JSON.stringify(res));
+
+            }
         }
     });
 });
