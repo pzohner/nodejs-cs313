@@ -163,3 +163,16 @@ html, #gameboard, main {
 .modal-footer > .btn-warning {
     float: left;
 }
+
+/***************************************************
+ * Formatting of lists of DM profiles and Characters
+ ***************************************************/
+ #listOfDMProfiles {
+     display: flex;
+     flex-direction:column;
+ }
+
+ #listOfCharacters {
+     display: flex;
+     flex-direction:column;
+ }
