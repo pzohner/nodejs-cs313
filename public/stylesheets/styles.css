@@ -158,10 +158,8 @@ html, #gameboard, main {
 }
 
 /*********************************************
-* modal-footer
+* modal-footer - getting done and create buttons positioned properly
 *********************************************/
-.modal-footer {
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-end;
+.modal-footer > .btn-warning {
+    float: left;
 }
