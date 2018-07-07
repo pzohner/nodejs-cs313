@@ -94,19 +94,34 @@ app.route('/selectionpage')
 
 /* getCharacters - returns json list of all characters belong to that user */
 app.get('/getCharacters', function(req, res) {
-    var userid = req.query.userid;
+    var username = session.username;
+    // Get the correct userid
+    var sql ="SELECT id from users where username = $1::text";
 
-    var sql = "SELECT * from characters where userid = $1::int;";
-    var params = [userid];
+    var params = [username];
 
     pool.query(sql, params, function(err, result) {
         if (err) {
+            console.log("Couldn't get the correct userID");
             res.status(500).send(err);
+
+            // If we were able to find the correct username and ID, then 
         } else {
-            res.status(200).json(result.rows);
+            console.log("Got the correct userID");
+            userid = result.rows.id;
+
+            var sql = "SELECT * from characters where userid = $1::int;";
+            var params = [userid];
+
+            pool.query(sql, params, function(err, result) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.status(200).json(result.rows);
+                }
+            })
         }
-    })
-});
+    });
 
 /* getGames - returns json list of all games -> used so user can pick which one to join */
 app.get('/getGames', function(req, res) {

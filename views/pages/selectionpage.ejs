@@ -8,7 +8,17 @@
     $(document).ready(function () {
         // Disable create game button until they have selected a DM profile
         $("#game-creation-btn").attr("disabled", "disabled");
-
+        
+        // Get list of characters and display them
+        $.ajax({
+           url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
+           type : "GET",
+           success: function(data) {
+               alert(JSON.stringify(data));
+               for (var i = 0; i < data.length; i++)
+                $('#listOfCharacters').append('<input type="radio" name="player-selection" class="characterradio">' + data[i].characterName + '</div>')     
+             }
+        });
     });
 
 function isDMSelected() {
@@ -72,6 +82,8 @@ function isGameSelected() {
             <!-- PLAYER SELECTION -->
             <div id="character-selection">
                 <h5 class='tiletitles'> Choose a character...<br>
+                    <div id="listOfCharacters"> </div>
+
                     <button id="createCharacterButton" type="button" data-toggle="modal" data-target="#createCharacterModal"> Create a new Character </button><br>
 
              <!-- <input type="radio" name="player-selection" class="characterradio" onclick="isCharacterSelected()" value="'.$row['avatarname'].'">' . $row['avatarname'] . ' ' . '<img src="'. $row['imgpath'] .'">' . '<br/>'; -->
@@ -125,8 +137,15 @@ function isGameSelected() {
             
             </div>
             <script>
-                    // $('#createCharacterButtonModal').click(function() {
-                        // $('#createCharacterForm').submit(function(event){
+
+                /******************************************************************
+                 * For some reason, the following two lines don't work
+                 * // $('#createCharacterButtonModal').click(function() {
+                 * // $('#createCharacterForm').submit(function(event){
+                 * I am not sure why, but in order to submit the form inside of the modal above
+                 * you need to target the submit button itself, instead of attaching a 
+                 * submit event on the form. Not sure why.
+                 * ****************************************************************/
                         $("button#createCharacterButtonModal").click(function(event){
                             event.preventDefault();
                         $.ajax({
