@@ -46,13 +46,12 @@ app.route('/login')
         pool.query(sql, params, function(err, result) {
             if (err) {
                 console.log('couldnt connect to database to list users to log into');
-                res.status(500).send(err);
-                res.redirect('/');
+                res.status(500).json(err);
             } else {
                 for (var i = 0; i < result.rows.length; i++) {
                     if (result.rows[i].username == username && result.rows[i].password == password) {
-                        res.status(200).send("Successfully logged on!");
-                        res.redirect('/selectionpage');
+                        res.status(200).json({'success' : 'Login Successful'});
+                        // res.redirect('/selectionpage');
                     }
                 }
                 
