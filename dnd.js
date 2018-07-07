@@ -110,6 +110,8 @@ app.get('/getCharacters', function(req, res) {
         } else {
             console.log("Got the correct userID");
             var userid = result.rows.id;
+
+            console.log("rows that we got back: " + result.rows);
             console.log("the userID is: " + userid);
             var sql = "SELECT * from characters where userid = $1::int;";
             var params = [userid];
