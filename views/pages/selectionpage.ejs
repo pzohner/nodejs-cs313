@@ -126,11 +126,10 @@ function isGameSelected() {
             </div>
         </div>
 
-    <!-- Create DM Profile Modal -->
+    <!-- Create DM Profile Modal
     <div class="modal fade" id="createDMProfileModal" role="dialog">
         <div class="modal-dialog">
         
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -146,7 +145,7 @@ function isGameSelected() {
         </div>
         
         </div>
-    </div>
+    </div> -->
 
 </body>
 <script>
@@ -171,16 +170,16 @@ $('#createCharacterButtonModal').click(function() {
     });
 });
 
-$('#dm-creation-btn').click(function() {
-    $.ajax({
-        url: "https://pacific-reef-42179.herokuapp.com/addDM",
-        type: "GET",
-        data: {
-            "characterName" : $('[name="avatarname"]').val(),
-            "imgPath" : "testImgPath.jpg",
-            "userid" : ""
-        }, 
-    });
-});
+// $('#dm-creation-btn').click(function() {
+//     $.ajax({
+//         url: "https://pacific-reef-42179.herokuapp.com/addDM",
+//         type: "GET",
+//         data: {
+//             "characterName" : $('[name="avatarname"]').val(),
+//             "imgPath" : "testImgPath.jpg",
+//             "userid" : ""
+//         }, 
+//     });
+// });
 </script>
 </html>
