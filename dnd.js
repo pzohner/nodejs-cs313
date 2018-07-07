@@ -1,5 +1,9 @@
 const express = require('express')
+var session = require('express-session');
 var app = express();
+app.use(session({secret: 'secretpassword'}));
+var session;
+
 const path = require('path');
 
 // to send posts
@@ -34,9 +38,13 @@ app.get('/', (req, res) => res.redirect('/login'));
 // if GET method on login, display login page
 app.route('/login')
     .get(function(req, res) {
+        var session = req.session;
         res.render('pages/login');
     })
     .post(function(req, res) {
+        var session = req.body.session;
+        
+
         var username = req.body.username;
         var password = req.body.password;
 
@@ -50,6 +58,12 @@ app.route('/login')
             } else {
                 for (var i = 0; i < result.rows.length; i++) {
                     if (result.rows[i].username == username && result.rows[i].password == password) {
+                        session.username = username;
+                        session.password = password;
+
+                        console.log("session username: " + session.username);
+                        console.log("session password: " + session.password);
+
                         res.status(200).json({'success' : 'Login Successful'});
                         // res.redirect('/selectionpage');
                     }
