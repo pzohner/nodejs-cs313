@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet"> 
+	<!-- <script src="intro/scripts.js"></script> -->
+
+	<!-- Including bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	 crossorigin="anonymous">
+
+	<!-- Including my personal styles -->
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <script>
+
+
+    $(document).ready(function () {
+        // Disable create game button until they have selected a DM profile
+        $("#game-creation-btn").attr("disabled", "disabled");
+
+    })
+
+function isDMSelected() {
+    var dmradio = document.getElementsByClassName("dmradio");
+
+    for(var i = 0; i < dmradio.length; i++) {
+        if (dmradio[i].checked) {
+        var dmname1 = dmradio[i].value;
+        document.getElementById("game-creation-btn").disabled = false;
+
+        var data = {
+            dmname: dmname1
+        };
+
+        $.post("set_dm_id.php", data);
+    }
+
+
+    }
+}
+
+function isCharacterSelected() {
+    var characterradio = document.getElementsByClassName("characterradio");
+
+    for(var i = 0; i < characterradio.length; i++) {
+        if (characterradio[i].checked) {
+            // if player selects a character, disable game-creation button (only available to DMs)
+            document.getElementById("game-creation-btn").disabled = true;
+            var characterradio1 = characterradio[i].value;
+
+            var data = {
+                character: characterradio1
+            };
+
+            $.post("set_character.php", data);
+        }
+    }
+}
+
+function isGameSelected() {
+    var gamesradio = document.getElementsByClassName("gamesradio");
+
+    for(var i = 0; i < gamesradio.length; i++) {
+        if (gamesradio[i].checked) {
+            var gamesradio1 = gamesradio[i].value;
+
+            var data = {
+                gamename: gamesradio1
+            };
+
+            $.post("set_gamename.php", data);
+        }
+    }
+}
+</script>
+</head>
+<body>
+    <div id='selection'> 
+        <h2> Select the DM or character you wish to use to play or create a new one! </h2> 
+
+            <div id="playerordm">
+        
+            <!-- PLAYER SELECTION -->
+            <div id="character-selection">
+            <h5 class='tiletitles'> Choose a character...<br>
+
+             <!-- <input type="radio" name="player-selection" class="characterradio" onclick="isCharacterSelected()" value="'.$row['avatarname'].'">' . $row['avatarname'] . ' ' . '<img src="'. $row['imgpath'] .'">' . '<br/>'; -->
+                        }
+            
+            <button id="createCharacterButton" type="button"> Create a new Character </button><br>
+            </div>
+
+            <span> OR... </span>
+
+            <!-- DM SELECTION -->
+            <div id="dm-selection">
+            <span class='tiletitles'> Choose a Dungeon Masters Profile...<br>
+
+            
+                <!-- <input type="radio" name="player-selection" class="dmradio" onclick="isDMSelected()" value='.$row['dmname'].'>' . $row['dmname'] . '<br/> -->
+            <button id="dm-creation-btn" type="button"> Create new DM Profile </button><br>
+            <!-- <button id="game-creation-btn" type="button" onclick="window.location.href=\'game-creation.php\'"> Create a new Game </button><br> -->
+            </div>
+            </div>
+            
+
+            <!-- GAME SELECTION -->
+            <div id="game-selection">
+            <span class='tiletitles'> Choose a game to join...<br>
+                <!-- <input type="radio" name="games-selection-btn" class="gamesradio" onclick="isGameSelected()" value='.$row['gamename'].'>' . $row['gamename'] . '<br/> -->
+            <button id="enterGame" type="button" > Enter Game </button><br>
+            <!-- onclick="window.location.href=\'play-game.php\'" -->
+            </div>
+            
+        
+    </div>
+
+</body>
+
+</html>

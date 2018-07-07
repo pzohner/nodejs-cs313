@@ -29,6 +29,37 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => res.render('pages/login'));
+
+app.route('/selectionpage')
+    .get(function(req, res) {
+        res.render('pages/selectionpage');
+    })
+    .post(function(req, res) {
+        var username = req.body.username;
+        var password = req.body.password;
+
+        var sql = "SELECT * from users;";
+        params = [];
+
+        pool.query(sql, params, function(err, result) {
+            if (err) {
+                console.log('couldnt connect to database to list users to log into');
+                console.log(err);
+                res.status(500).send(err);
+                // res.redirect('/');
+            } else {
+                for (var i = 0; i < result.rows.length; i++) {
+                    console.log("Row in database is" + r);
+                }
+                // res.status(200).json(result.rows);
+            }
+        });
+
+        console.log("Username: " + username);
+        console.log("password: " + password);
+
+        // res.render('pages/selectionpage');
+    });
     
 
 /* getCharacters - returns json list of all characters belong to that user */
@@ -258,7 +289,7 @@ app.post('/addUser', function(req, res) {
     }
 
 
-/* /move - records a players move into the database - its counter part is getGameCharacters, which returns position of each characters */
+/* /move - records a players into the database - its counter part is getGameCharacters, which returns position of each characters */
 app.get('/move', function(req, res) {
     var characterName = req.query.characterName;
     var posy = req.query.posy;
