@@ -119,14 +119,15 @@ function isGameSelected() {
                     </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button  type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 </div>
             </div>
             
             </div>
             <script>
                     // $('#createCharacterButtonModal').click(function() {
-                        $('#createCharacterForm').submit(function(event){
+                        // $('#createCharacterForm').submit(function(event){
+                        $("button#createCharacterButtonModal").click(function(){
                             event.preventDefault();
                         $.ajax({
                             url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
