@@ -9,15 +9,34 @@
         // Disable create game button until they have selected a DM profile
         $("#game-creation-btn").attr("disabled", "disabled");
         
-        // Get list of characters and display them
+        /*******************************************
+         *  Get list of characters and display them
+         * *****************************************/
         $.ajax({
            url: "https://pacific-reef-42179.herokuapp.com/getCharacters",
            type : "GET",
            success: function(data) {
                alert("Got the characters!");
+            //    alert(JSON.stringify(data));
+               for (var i = 0; i < data.length; i++)
+                $('#listOfCharacters').append('<input type="radio" name="player-selection" class="characterradio">' + data[i].avatarname + '</div>')     
+             },
+            error: function(data) {
+                alert('could not get the characters');
+                alert(data);
+            }
+        });
+
+        /*******************************************
+         *  Get list of DM profiles and display them
+         * *****************************************/
+         $.ajax({
+           url: "https://pacific-reef-42179.herokuapp.com/getDMs",
+           type : "GET",
+           success: function(data) {
                alert(JSON.stringify(data));
                for (var i = 0; i < data.length; i++)
-                $('#listOfCharacters').append('<input type="radio" name="player-selection" class="characterradio">' + data[i].characterName + '</div>')     
+                $('#listOfDMProfiles').append('<input type="radio" name="player-selection" class="dmradio">' + data[i].dmname + '</div>')     
              },
             error: function(data) {
                 alert('could not get the characters');
@@ -99,7 +118,7 @@ function isGameSelected() {
             <!-- DM SELECTION -->
             <div id="dm-selection">
             <span class='tiletitles'> Choose a Dungeon Masters Profile...<br>
-            
+            <div id="listOfDMProfiles"> </div>
                 <!-- <input type="radio" name="player-selection" class="dmradio" onclick="isDMSelected()" value='.$row['dmname'].'>' . $row['dmname'] . '<br/> -->
             <button id="dm-creation-btn" type="button"> Create new DM Profile </button><br>
             <button id="game-creation-btn" type="button"> Create a new Game </button><br>

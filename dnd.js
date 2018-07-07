@@ -144,20 +144,42 @@ app.get('/getGames', function(req, res) {
 });
 
 
-/* getDMs - returns json list of all dms belong to that user */
+/* *********************************************************
+ * getDMs - returns json list of all dms belong to that user 
+ * *********************************************************/
 app.get('/getDMs', function(req, res) {
-    var userid = req.query.userid;
+    var username = session.username;
+    console.log("got the username from the session variable: " + username);
+    // Get the correct userid
+    var sql ="SELECT id from users where username = $1::text";
 
-    var sql = "SELECT * from dm where userid = $1::int;";
-    var params = [userid];
+    var params = [username];
 
     pool.query(sql, params, function(err, result) {
         if (err) {
+            console.log("Couldn't get the correct userID");
             res.status(500).send(err);
+
+            // If we were able to find the correct username and ID, then 
         } else {
-            res.status(200).json(result.rows);
+            console.log("Got the correct userID");
+            // var userid = result.rows.id;
+            var userid = result.rows[0].id;
+
+
+            var sql = "SELECT * from dm where userid = $1::int;";
+            var params = [userid];
+
+            pool.query(sql, params, function(err, result) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.status(200).json(result.rows);
+                }
+            
+            });
         }
-    })
+    });
 });
 
 /* getNPCs - returns json list of all dms belong to that user */
