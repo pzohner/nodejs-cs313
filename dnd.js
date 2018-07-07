@@ -260,13 +260,15 @@ app.post('/addUser', function(req, res) {
 });
 
 
-/* addCharacter - adds a character to the database */
+/***************************************************
+ *  addCharacter - adds a character to the database 
+ * *************************************************/
 
-    app.get('/addCharacter', function (req, res) {
-        var characterName = req.query.characterName;
-        var imgPath = req.query.imgPath;
+    app.post('/addCharacter', function (req, res) {
+        var characterName = req.body.characterName;
+        var imgPath = req.body.imgPath;
+        // grab username from the session (easier than passing it with the query strings)
         var username = session.username
-        // var userid = req.query.userid; 
 
         addCharacterdb(characterName, imgPath, username, function (err, result) {
             if (err) {
@@ -288,12 +290,15 @@ app.post('/addUser', function(req, res) {
             if (err) {
                 console.log("Couldn't get the correct userID");
                 callback("failed to get correct userid " + err, null);
+
                 // If we were able to find the correct username and ID, then 
             } else {
                 console.log("Got the correct userID");
                 userid = result.rows.id;
 
-                /* Execute another sql statement to actually add the character to the database */
+                /****************************************************************************
+                * Execute another sql statement to insert the character to the database 
+                *****************************************************************************/
                 var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
                 var params = [characterName, 0, 0, imgPath, userid, 0];
         
@@ -302,15 +307,12 @@ app.post('/addUser', function(req, res) {
                         console.log("Failed to add Character to db;");
                         callback("failed to add character to database " + err, null);
                     } else {
-                        console.log("added character" + JSON.stringify(result.rows));
+                        console.log("added character to database");
                         callback(null, result.rows);
                     }
                 });
-
             }
         });
-
-        
     }
 
 /* /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?) */

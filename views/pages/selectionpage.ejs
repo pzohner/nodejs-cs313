@@ -115,11 +115,11 @@ function isGameSelected() {
                         Character name: <input type="text" name='avatarname'> <br>
                         <hr>
                         Upload an image: <input type="file" name='characterpic'>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button id='createCharacterButtonModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                    <button id='createCharacterButtonModal' type="button" class="btn btn-success" data-dismiss="modal">Create Character</button>
                 </div>
             </div>
             
@@ -149,10 +149,11 @@ function isGameSelected() {
 
 </body>
 <script>
-$('#createCharacterButtonModal').click(function() {
+// $('#createCharacterButtonModal').click(function() {
+    $('#createCharacterForm').submit(function(event){
     $.ajax({
         url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
-        type: "GET",
+        type: "POST",
         data: {
             "characterName" : $('[name="avatarname"]').val(),
             "imgPath" : $('[name="characterpic"]').val(),
