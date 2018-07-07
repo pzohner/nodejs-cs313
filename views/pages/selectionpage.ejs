@@ -151,6 +151,7 @@ function isGameSelected() {
 <script>
 // $('#createCharacterButtonModal').click(function() {
     $('#createCharacterForm').submit(function(event){
+        event.preventDefault();
     $.ajax({
         url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
         type: "POST",
