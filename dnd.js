@@ -42,9 +42,6 @@ app.route('/login')
         res.render('pages/login');
     })
     .post(function(req, res) {
-        session = req.body.session;
-        
-
         var username = req.body.username;
         var password = req.body.password;
 
