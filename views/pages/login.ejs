@@ -20,13 +20,13 @@ $('#loginform').submit(function(event){
     console.log("called ajax function");
     var data = $('#loginform').serialize();
     $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res, status) {
-        if (status == 200) {
+        if (status == 'success') {
             $('#loginsuccessful').append(res.success);
-            alert("The server says" + JSON.parse(res));
+            alert("The server says" + JSON.stringify(res));
 
-        } else if (status == 500) {
+        } else {
             $('#loginsuccessful').append("Error, please try logging in again");
-            alert("The server says" + JSON.parse(res));
+            alert("The server says" + JSON.stringify(res));
             
         }
     });
