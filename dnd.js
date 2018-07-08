@@ -266,18 +266,36 @@ app.get('/addDM', function(req, res) {
     // grab the username and password (password better be encrypted)
     dmname = req.query.dmname;
     userid = req.query.userid;
+    var username = session.username;
+    // Get the correct userid
+    var sql ="SELECT id from users where username = $1::text";
 
-    // created sql statement and assign parameters
-    var sql = "INSERT INTO dm (dmname, userid) VALUES ($1::text, $2::int)";
-    var params = [dmname, userid];
-    
-    // execute the query
-    pool.query(sql,params, function(err, result) {
+    var params = [username];
+
+    pool.query(sql, params, function(err, result) {
         if (err) {
-            res.status(500).send(err);
-        } else (
-            res.status(200).send("Successfully added dm" + dmname + " to the database")
-        )
+            console.log("Couldn't get the correct userID");
+            callback("failed to get correct userid " + err, null);
+
+            // If we were able to find the correct username and ID, then 
+        } else {
+            console.log("Got the correct userID");
+            var userid = result.rows[0].id;
+            console.log("userid to insert" + result.rows.id);
+
+            // created sql statement and assign parameters
+            var sql = "INSERT INTO dm (dmname, userid) VALUES ($1::text, $2::int)";
+            var params = [dmname, userid];
+            
+            // execute the query
+            pool.query(sql,params, function(err, result) {
+                if (err) {
+                    res.status(500).send(err);
+                } else (
+                    res.status(200).send("Successfully added dm" + dmname + " to the database")
+                )
+            });
+        }
     });
 });
 
@@ -310,7 +328,7 @@ app.post('/addUser', function(req, res) {
         var characterName = req.body.characterName;
         var imgPath = req.body.imgPath;
         // grab username from the session (easier than passing it with the query strings)
-        var username = session.username
+        var username = session.username;
 
         addCharacterdb(characterName, imgPath, username, function (err, result) {
             if (err) {
