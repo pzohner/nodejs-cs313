@@ -50,7 +50,7 @@ app.get("/image.png", (req, res) => {
 
 app.post(
     "/uploadcharacterimg",
-    upload.single("file" /* name attribute of <file> element in your form */),
+    upload.single("characterpic" /* name attribute of <file> element in your form */),
     (req, res) => {
     console.log("Got to post message to uploadcharacter image")
 
