@@ -56,7 +56,7 @@ app.post(
       console.log("characterpic: " + req.characterpic)
     //   console.log("req.file: " + req.file.path)
       console.log("req: " + req)
-      console.log("req string: " + json.stringify(req))
+      console.log("req string: " + JSON.stringify(req))
       console.log("path: " + req.characterpic.path)
       const tempPath = req.characterpic.path;
       const targetPath = path.join(__dirname, "./images/image.png");
