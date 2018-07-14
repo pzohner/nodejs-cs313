@@ -54,7 +54,7 @@ app.post(
     (req, res) => {
     console.log("Got to post message to uploadcharacter image")
 
-      const tempPath = req.file.path;
+      const tempPath = req.file.imgPath;
       const targetPath = path.join(__dirname, "./images/image.png");
   
       if (path.extname(req.file.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
