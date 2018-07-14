@@ -16,7 +16,7 @@
            url: "https://pacific-reef-42179.herokuapp.com/getCharacters",
            type : "GET",
            success: function(data) {
-               alert("Got the characters!");
+            //    alert("Got the characters!");
             //    alert(JSON.stringify(data));
                for (var i = 0; i < data.length; i++)
                 $('#listOfCharacters').append('<div> <input type="radio" name="player-selection" class="characterradio">' + data[i].avatarname + '</div>')     
