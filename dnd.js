@@ -36,8 +36,6 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.redirect('/login'));
 
 
-
-
 // if GET method on login, display login page
 app.route('/login')
     .get(function(req, res) {
