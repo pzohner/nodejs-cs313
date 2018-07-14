@@ -172,8 +172,8 @@ function isGameSelected() {
                         Upload an image: <input type="file" name='characterpic'>
                     </div>
                     <div class="modal-footer">
-                        <button id='createCharacterButtonModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
                         <button  type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button id='createCharacterButtonModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
                     </form>
                 </div>
             </div>
@@ -189,7 +189,8 @@ function isGameSelected() {
                  * you need to target the submit button itself, instead of attaching a 
                  * submit event on the form. Not sure why.
                  * ****************************************************************/
-                    //     $("button#createCharacterButtonModal").click(function(event){
+                        $("button#createCharacterButtonModal").click(function(event){
+                            document.write("submitted the form");
                     //         event.preventDefault();
                     //     $.ajax({
                     //         url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
@@ -209,7 +210,7 @@ function isGameSelected() {
                     //             }
                     //         }
                     //     });
-                    // });
+                    });
             </script>
         </div>
 

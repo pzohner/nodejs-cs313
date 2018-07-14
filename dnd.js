@@ -45,7 +45,7 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.redirect('/login'));
 
 app.get("/image.png", (req, res) => {
-    res.sendFile(path.join(__dirname, "images/image.png"));
+    res.sendFile(path.join(__dirname, "./images/image.png"));
   });
 
 app.post(
@@ -55,7 +55,7 @@ app.post(
     console.log("Got to post message to uploadcharacter image")
 
       const tempPath = req.file.path;
-      const targetPath = path.join(__dirname, "images/image.png");
+      const targetPath = path.join(__dirname, "./images/image.png");
   
       if (path.extname(req.file.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
         fs.rename(tempPath, targetPath, err => {
