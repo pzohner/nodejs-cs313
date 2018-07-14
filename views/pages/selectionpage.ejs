@@ -166,14 +166,14 @@ function isGameSelected() {
                 <h4 class="modal-title">Create a character</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="createCharacterForm" enctype="multipart/form-data" action="/uploadcharacterimg">
+                    <form id="createCharacterForm" enctype="multipart/form-data">
                         Character name: <input type="text" name='avatarname'> <br>
                         <hr>
                         Upload an image: <input type="file" name='characterpic'>
                     </div>
                     <div class="modal-footer">
-                        <button  type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                         <button id='createCharacterButtonModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
+                        <button  type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                     </form>
                 </div>
             </div>
@@ -190,26 +190,25 @@ function isGameSelected() {
                  * submit event on the form. Not sure why.
                  * ****************************************************************/
                         $("button#createCharacterButtonModal").click(function(event){
-                            document.write("submitted the form");
-                    //         event.preventDefault();
-                    //     $.ajax({
-                    //         url: "https://pacific-reef-42179.herokuapp.com/addCharacter",
-                    //         type: "POST",
-                    //         data: {
-                    //             "characterName" : $('[name="avatarname"]').val(),
-                    //             "imgPath" : $('[name="characterpic"]').val(),
-                    //         }, 
-                    //         statusCode: {
-                    //             500: function(res) {
-                    //                 alert("Server error: " + JSON.stringify(res));
-                    //             },
-                    //             200: function(res) {
-                    //                 alert("successfully added character to database");
-                    //                 alert(JSON.stringify(res));
+                            event.preventDefault();
+                        $.ajax({
+                            url: "https://pacific-reef-42179.herokuapp.com/uploadcharacterimg",
+                            type: "POST",
+                            data: {
+                                "characterName" : $('[name="avatarname"]').val(),
+                                "imgPath" : $('[name="characterpic"]').val(),
+                            }, 
+                            statusCode: {
+                                500: function(res) {
+                                    alert("Server error: " + JSON.stringify(res));
+                                },
+                                200: function(res) {
+                                    alert("successfully added character to database");
+                                    alert(JSON.stringify(res));
                     
-                    //             }
-                    //         }
-                    //     });
+                                }
+                            }
+                        });
                     });
             </script>
         </div>
