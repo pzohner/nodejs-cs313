@@ -1,5 +1,14 @@
 const express = require('express')
 var session = require('express-session');
+
+// used for uploading images
+const multer = require('multer')
+
+const upload = multer({
+    dest: "public/images/"
+    // you might also want to set some limits: https://github.com/expressjs/multer#limits
+  });
+
 var app = express();
 app.use(session({secret: 'secretpassword'}));
 var session;
@@ -35,6 +44,36 @@ app.set('view engine', 'ejs')
 // Root will redirect to login page
 app.get('/', (req, res) => res.redirect('/login'));
 
+app.post(
+    "/uploadcharacterimg",
+    upload.single("file" /* name attribute of <file> element in your form */),
+    (req, res) => {
+      const tempPath = req.file.path;
+      const targetPath = path.join(__dirname, "./uploads/image.png");
+  
+      if (path.extname(req.file.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
+        fs.rename(tempPath, targetPath, err => {
+          if (err) return handleError(err, res);
+  
+          res
+            .status(200)
+            .contentType("text/plain")
+            .end("File uploaded!");
+        });
+      } else {
+        fs.unlink(tempPath, err => {
+          if (err) return handleError(err, res);
+  
+          res
+            .status(403)
+            .contentType("text/plain")
+            .end("Only .png files are allowed!");
+        });
+      }
+    }
+  );
+
+// app.get('/game')
 
 // if GET method on login, display login page
 app.route('/login')
