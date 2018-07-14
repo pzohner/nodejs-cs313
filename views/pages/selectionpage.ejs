@@ -34,7 +34,7 @@
            url: "https://pacific-reef-42179.herokuapp.com/getDMs",
            type : "GET",
            success: function(data) {
-               alert(JSON.stringify(data));
+            //    alert(JSON.stringify(data));
                for (var i = 0; i < data.length; i++)
                 $('#listOfDMProfiles').append('<div> <input type="radio" name="player-selection" class="dmradio">' + data[i].dmname + '</div>')     
              },
@@ -51,7 +51,7 @@
            url: "https://pacific-reef-42179.herokuapp.com/getGames",
            type : "GET",
            success: function(data) {
-               alert(JSON.stringify(data));
+            //    alert(JSON.stringify(data));
                for (var i = 0; i < data.length; i++)
                 $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
              },
