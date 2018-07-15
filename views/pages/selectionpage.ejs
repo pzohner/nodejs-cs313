@@ -97,21 +97,21 @@ function isCharacterSelected() {
     }
 }
 
-function isGameSelected() {
-    var gamesradio = document.getElementsByClassName("gamesradio");
+// function isGameSelected() {
+//     var gamesradio = document.getElementsByClassName("gamesradio");
 
-    for(var i = 0; i < gamesradio.length; i++) {
-        if (gamesradio[i].checked) {
-            var gamesradio1 = gamesradio[i].value;
+//     for(var i = 0; i < gamesradio.length; i++) {
+//         if (gamesradio[i].checked) {
+//             var gamesradio1 = gamesradio[i].value;
 
-            var data = {
-                gamename: gamesradio1
-            };
+//             var data = {
+//                 gamename: gamesradio1
+//             };
 
-            $.post("set_gamename.php", data);
-        }
-    }
-}
+//             $.post("set_gamename.php", data);
+//         }
+//     }
+// }
 </script>
 </head>
 <body>
@@ -239,25 +239,23 @@ function isGameSelected() {
 </body>
 <script>
 
-function enterGame() {
-    $('#enterGame').click(function() { 
-        var radioValue = $("input[name='games-selection-btn']:checked").val();
-        $.ajax({
-            url: "https://pacific-reef-42179.herokuapp.com/enterGame",
-            type: "POST",
-            data: {
-                "gamename" : radioValue
-            },
-            success: function() {
-                alert("successfully entered game")
-            },
-            error: function() {
-                alert("couldn't enter game for some reason")
-            }
-        })
-    });
+$('#enterGame').click(function() { 
+    var radioValue = $("input[name='games-selection-btn']:checked").val();
+    $.ajax({
+        url: "https://pacific-reef-42179.herokuapp.com/enterGame",
+        type: "POST",
+        data: {
+            "gamename" : radioValue
+        },
+        success: function() {
+            alert("successfully entered game")
+        },
+        error: function() {
+            alert("couldn't enter game for some reason")
+        }
+    })
+});
 
-}
             // <button id="enterGame" type="button" > Enter Game </button><br>
 
 // $('#createCharacterButtonModal').click(function() {
