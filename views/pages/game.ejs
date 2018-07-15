@@ -12,11 +12,13 @@
 
 	<!-- Including my personal styles -->
     <link href="styles.css" rel="stylesheet" type="text/css">
-    <script> 
-        var data = <%= data %>
-        alert("data is " + data);
+    <% if (data) { %>
+        <script>
+           data = JSON.parse('<%- JSON.stringify(data) %>');
+           alert("data is " + data);
         alert("data is " + data["gamename"]);
-    </script>
+        </script>
+     <% } %>
 </head>
 
     <body id="gameboard" background="'. $row['tableimgpath'] . '">

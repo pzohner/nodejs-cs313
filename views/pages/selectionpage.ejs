@@ -250,8 +250,8 @@ $('#enterGame').click(function() {
         success: function() {
             alert("successfully entered game")
         },
-        error: function() {
-            alert("couldn't enter game for some reason")
+        error: function(err) {
+            alert("couldn't enter game for some reason " + err)
         }
     })
 });
