@@ -62,7 +62,7 @@ app.post(
       const tempPath = req.body.imgPath.path;
       const targetPath = path.join(__dirname, "./images/image.png");
         console.log("set the variables in upload image finally");
-      if (path.extname(req.body.imgPath.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
+      if (path.extname(req.body.imgPath.originalname).toLowerCase() === ".png" || path.extname(req.body.imgPath.originalname).toLowerCase() === ".jpg") {
         fs.rename(tempPath, targetPath, err => {
           if (err) return handleError(err, res);
   
