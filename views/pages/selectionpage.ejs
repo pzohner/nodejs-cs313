@@ -26,7 +26,6 @@
                 alert(data);
             }
         });
-
         /*******************************************
          *  Get list of DM profiles and display them
          * *****************************************/
@@ -239,6 +238,28 @@ function isGameSelected() {
 
 </body>
 <script>
+
+function enterGame() {
+    $('#enterGame').click(function() { 
+        var radioValue = $("input[name='games-selection-btn']:checked").val();
+        $.ajax({
+            url: "https://pacific-reef-42179.herokuapp.com/enterGame",
+            type: "POST",
+            data: {
+                "gamename" : radioValue
+            },
+            success: function() {
+                alert("successfully entered game")
+            },
+            error: function() {
+                alert("couldn't enter game for some reason")
+            }
+        })
+    });
+
+}
+            // <button id="enterGame" type="button" > Enter Game </button><br>
+
 // $('#createCharacterButtonModal').click(function() {
     $('#createDMProfileForm').submit(function(event){
         event.preventDefault();

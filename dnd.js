@@ -92,8 +92,23 @@ app.post(
     }
   );
 
-// app.get('/game')
+// When user selects start game
+app.get('/enterGame', function(req, res) {
 
+    var gamename = req.query.gamename;
+
+    var sql = "SELECT * from games where gamename = $1::text;";
+    var params = [gamename];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.render('pages/game', {"data" : result.rows});
+            // res.status(200).json(result.rows);
+        }
+    })
+});
 // if GET method on login, display login page
 app.route('/login')
     .get(function(req, res) {
@@ -444,6 +459,19 @@ app.post('/addUser', function(req, res) {
     })
 
     function getGameCharactersdb(gameid, callback) {
+        var sql = "SELECT * from characters where gameid = $1::int;";
+        var params = [gameid];
+
+        pool.query(sql, params, function (err, result) {
+            if (err) {
+                console.log("could't get game characters from database");
+                console.log(err);
+            } else {
+                console.log("The result was: " + JSON.stringify(result.rows));
+                callback(null, result.rows)
+            }
+        });
+    } function getGameCharactersdb(gameid, callback) {
         var sql = "SELECT * from characters where gameid = $1::int;";
         var params = [gameid];
 

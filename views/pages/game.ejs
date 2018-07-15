@@ -12,7 +12,11 @@
 
 	<!-- Including my personal styles -->
     <link href="styles.css" rel="stylesheet" type="text/css">
-    
+    <script> 
+        var data = <%= data %>
+        alert("data is " + data);
+        alert("data is " + data["gamename"]);
+    </script>
 </head>
 
     <body id="gameboard" background="'. $row['tableimgpath'] . '">
@@ -24,6 +28,23 @@
 
         <!-- <button id="clearplayers" type="button" onclick="window.location.href='clear-characters.php\'"> Clear Players </button>'; -->
 <script>
+    // $.ajax({
+    //        url: "https://pacific-reef-42179.herokuapp.com/getCurrentGame",
+    //        type : "GET",
+    //        success: function(data) {
+    //         //    alert(JSON.stringify(data));
+    //            for (var i = 0; i < data.length; i++)
+    //             $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
+    //          },
+    //         error: function(data) {
+    //             alert('could not get the games');
+    //             alert(data);
+    //         }
+    //     });
+
+
+
+
     var charactername = "#character" + character;
     var gameboard = document.querySelector("#gameboard");
     var character = document.querySelector(charactername);
