@@ -56,12 +56,12 @@ app.post(
       console.log("body characterpic: " + req.body.imgPath);
       console.log("body: " + JSON.stringify(req.body));
 
-
     //   console.log("req.file: " + req.file.path)
     //   console.log("path: " + req.body.characterpic.path);
       const tempPath = req.body.imgPath.path;
       const targetPath = path.join(__dirname, "./images/image.png");
-        console.log("set the variables in upload image finally");
+        console.log("original name: " + req.body.imgPath.originalname);
+        console.log("stringed originalname" + req.body.imgPath.originalname.stringify())
       if (path.extname(req.body.imgPath.originalname).toLowerCase() === ".png" || path.extname(req.body.imgPath.originalname).toLowerCase() === ".jpg") {
         fs.rename(tempPath, targetPath, err => {
           if (err) return handleError(err, res);
