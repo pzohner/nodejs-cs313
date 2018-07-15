@@ -1,7 +1,6 @@
 const express = require('express')
 var session = require('express-session');
 const http = require("http");
-const path = require("path");
 const fs = require("fs");
 
 // used for uploading images
