@@ -54,7 +54,7 @@ const handleError = (err, res) => {
 res
     .status(500)
     .contentType("text/plain")
-    .end("Oops! Something went wrong!");
+    .end("Oops! Something went wrong!" + err);
 };
 
 app.post(
