@@ -53,11 +53,10 @@ app.post(
     upload.single("characterpic" /* name attribute of <file> element in your form */),
     (req, res) => {
       console.log("Got to post message to uploadcharacter image")
-      console.log("characterpic: " + req.characterpic)
+      console.log("body characterpic: " + req.body.characterpic)
+
     //   console.log("req.file: " + req.file.path)
-      console.log("req: " + req)
-      console.log("req string: " + JSON.stringify(req))
-      console.log("path: " + req.characterpic.path)
+      console.log("path: " + req.body.characterpic.path)
       const tempPath = req.characterpic.path;
       const targetPath = path.join(__dirname, "./images/image.png");
   
