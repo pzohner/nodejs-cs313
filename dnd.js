@@ -56,6 +56,7 @@ app.post(
       console.log("body characterpic: " + req.body.imgPath);
       console.log("body: " + req.body);
 
+      
     //   console.log("req.file: " + req.file.path)
     //   console.log("path: " + req.body.characterpic.path);
       const tempPath = req.body.imgPath.path;
