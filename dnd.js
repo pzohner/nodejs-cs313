@@ -50,6 +50,13 @@ app.get("/image.png", (req, res) => {
     res.sendFile(path.join(__dirname, "./images/image.png"));
   });
 
+const handleError = (err, res) => {
+res
+    .status(500)
+    .contentType("text/plain")
+    .end("Oops! Something went wrong!");
+};
+
 app.post(
     "/uploadcharacterimg",
     upload.single("characterpic" /* name attribute of <file> element in your form */),
@@ -67,7 +74,7 @@ app.post(
         fs.rename(tempPath, targetPath, err => {
           if (err) return handleError(err, res);
   
-          res
+          ress
             .status(200)
             .contentType("text/plain")
             .end("File uploaded!");
