@@ -225,7 +225,7 @@ app.get('/setCharacterGameid', function(req, res) {
 
     pool.query(sql, params, function(err, result) {
         if (err) {
-            res.status(500).send(err);
+            res.status(500).json(err);
         } else {
             res.status(200).json({success: "Successfully updated the database"});
         }
