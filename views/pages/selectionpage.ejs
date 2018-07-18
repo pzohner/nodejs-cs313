@@ -72,6 +72,13 @@
                 alert('could not get the games');
                 alert(data);
             }
+
+
+            // using jquery - if someone clicks on DM radio button, let them create a game. 
+            $("input[name='gamesradio']").on("change", function () {
+                // alert(this.value);
+                isCharacterANDGameSelected();
+            });
         });
 
         
@@ -123,7 +130,7 @@
                     // if player selects a character, disable game-creation button (only available to DMs)
                     var characterName = characterradio[i].value;
                     var gameid = gamesradio[j].attr("id");
-                    
+                    alert(characterName + " " + gameid);
                     // $.ajax({
                     //     url: "https://pacific-reef-42179.herokuapp.com/setCharacterGameid",
                     //     type: "GET",
