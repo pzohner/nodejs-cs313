@@ -43,8 +43,9 @@
                         '<div> <input type="radio" name="dmselection" class="dmradio">' + data[
                             i].dmname + '</div>')
 
+                // using jquery - if someone clicks on DM radio button, let them create a game. 
                 $("input[name='dmselection']").on("change", function () {
-                    alert(this.value);
+                    // alert(this.value);
                     isDMSelected();
                 });
             },
@@ -108,6 +109,42 @@
                 };
 
                 $.post("set_character.php", data);
+            }
+        }
+    }
+
+    function isCharacterANDGameSelected() {
+        var characterradio = document.getElementsByClassName("characterradio");
+        var gamesradio = document.getElementsByClassName("gamesradio")
+
+        for (var i = 0; i < characterradio.length; i++) {
+            for (var j = 0; j < gamesradio.length; i++) {
+                if (characterradio[i].checked && gamesradio[j].checked) {
+                    // if player selects a character, disable game-creation button (only available to DMs)
+                    var characterName = characterradio[i].value;
+                    var gameid = gamesradio[j].attr("id");
+                    
+                    // $.ajax({
+                    //     url: "https://pacific-reef-42179.herokuapp.com/setCharacterGameid",
+                    //     type: "GET",
+                    //     data: {
+                    //         "charactername": characterName,
+                    //         "gameid": gameid,
+                    //     },
+                    //     success: function(data, textStatus, jqXHR) {
+                    //         alert("Successfully updated character to belong to that game")
+                    //     },
+                    //     error: function(data) {
+                    //         alert("couldn't change ownership of character to game: " + data)
+                    //     }
+                    // });
+
+                    
+                    // var data = {
+                    //     character: characterradio1
+                    // };
+                    
+                }
             }
         }
     }
