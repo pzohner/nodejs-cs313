@@ -234,7 +234,7 @@
                     <h4 class="modal-title">Create a character</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="createCharacterForm" enctype="multipart/form-data" method="POST" action="https://pacific-reef-42179.herokuapp.com/uploadcharacterimg">
+                    <form id="createCharacterForm" action="https://pacific-reef-42179.herokuapp.com/uploadcharacterimg"  method="post" enctype="multipart/form-data" >
                         Character name:
                         <input type="text" name='avatarname'>
                         <br>
@@ -243,7 +243,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                    <button id='createCharacterButtonModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
+                    <button id='createCharacterButtonModal' type="submit" class="btn btn-success">Create Character</button>
                     </form>
                 </div>
             </div>
