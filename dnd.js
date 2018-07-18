@@ -214,6 +214,24 @@ app.get('/getGames', function(req, res) {
     })
 });
 
+/* getGames - returns json list of all games -> used so user can pick which one to join */
+app.get('/setCharacterGameid', function(req, res) {
+    var avatarname = req.query.charactername;
+    var gameid = req.query.gameid;
+
+
+    var sql = "Update characters set gameid = $1::id where avatarname = 2$::text";
+    var params = [gameid, avatarname];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).json({success: "Successfully updated the database"});
+        }
+    })
+});
+
 
 /* *********************************************************
  * getDMs - returns json list of all dms belong to that user 

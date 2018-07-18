@@ -131,21 +131,22 @@
                     // if player selects a character, disable game-creation button (only available to DMs)
                     var characterName = characterradio[i].value;
                     var gameid = gamesradio[j].id;
-                    alert(characterName + " " + gameid);
-                    // $.ajax({
-                    //     url: "https://pacific-reef-42179.herokuapp.com/setCharacterGameid",
-                    //     type: "GET",
-                    //     data: {
-                    //         "charactername": characterName,
-                    //         "gameid": gameid,
-                    //     },
-                    //     success: function(data, textStatus, jqXHR) {
-                    //         alert("Successfully updated character to belong to that game")
-                    //     },
-                    //     error: function(data) {
-                    //         alert("couldn't change ownership of character to game: " + data)
-                    //     }
-                    // });
+                    // alert(characterName + " " + gameid);
+                    $.ajax({
+                        url: "https://pacific-reef-42179.herokuapp.com/setCharacterGameid",
+                        type: "GET",
+                        data: {
+                            "charactername": characterName,
+                            "gameid": gameid,
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            alert("Successfully updated character to belong to that game: " + data)
+
+                        },
+                        error: function(data) {
+                            alert("couldn't change ownership of character to game: " + data)
+                        }
+                    });
 
                     
                     // var data = {
