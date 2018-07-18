@@ -3,15 +3,31 @@
 <head>
     <% include ../partials/header.ejs %>  
     
-    <% if (data) { %>
+    <!-- <% if (data) { %>
         <script>
            data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
         alert("data is " + data["gamename"]);
         </script>
-     <% } %>
-</head>
+     <% } %> -->
+<script>
 
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    $(document).ready(function() {
+        $('h1').append(getParameterByName("gamename"));
+});
+</script>
+</head>
 <body id="gameboard" background="images/balathan-img.gif">
             <h1></h1>
 
