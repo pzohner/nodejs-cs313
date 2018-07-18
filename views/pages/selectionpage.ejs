@@ -265,7 +265,7 @@
                 type: "POST",
                 data: {
                     "characterName": $('[name="avatarname"]').val(),
-                    "imgPath": $('[name="characterpic"]').val(),
+                    "imgPath": $('[name="characterpic"]').val().split('\\').pop();,
                 },
                 statusCode: {
                     500: function (res) {
