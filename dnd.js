@@ -69,7 +69,7 @@ app.post(
     //   console.log("path: " + req.body.characterpic.path);
       const tempPath = req.body.imgPath;
       const targetPath = path.join(__dirname, "./images/image.png");
-        console.log("original name: " + req.body.imgPath);
+        console.log("originalS name: " + req.body.imgPath);
       if (path.extname(req.body.imgPath).toLowerCase() === ".png" || path.extname(req.body.imgPath).toLowerCase() === ".jpg") {
         fs.rename(tempPath, targetPath, err => {
           if (err) return handleError(err, res);
