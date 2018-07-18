@@ -68,11 +68,7 @@
             }
         });
 
-        // if someone taps on a dm radio button, allow them to create a game.
-        $("input[name='dmselection']").on("change", function () {
-            alert(this.value);
-            isDMSelected();
-        });
+        
 
     });
 
@@ -323,6 +319,13 @@
     //         }, 
     //     });
     // });
+
+    // if someone taps on a dm radio button, allow them to create a game.
+    $("input[name='dmselection']").on("change", function () {
+        alert(this.value);
+        isDMSelected();
+    });
+    
 </script>
 
 </html>
