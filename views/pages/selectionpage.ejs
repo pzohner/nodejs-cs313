@@ -29,6 +29,7 @@
                 alert(data);
             }
         });
+
         /*******************************************
          *  Get list of DM profiles and display them
          * *****************************************/
@@ -263,6 +264,11 @@
             type: "GET",
             data: {
                 "gamename": radioValue
+            },
+            success: function(data, textStatus, jqXHR) {
+                alert("This is the data: " + data);
+                alert("This is the textStatus" + textStatus);
+                alert("This is the jqXHR" + jqXHR);
             },
             error: function (err) {
                 alert("couldn't enter game for some reason " + err)
