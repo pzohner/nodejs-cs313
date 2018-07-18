@@ -4,12 +4,12 @@ const http = require("http");
 const fs = require("fs");
 
 // used for uploading images
-const multer = require('multer')
+// const multer = require('multer')
 
-const upload = multer({
-    dest: "public/images/"
+// const upload = multer({
+    // dest: "/public/images/"
     // you might also want to set some limits: https://github.com/expressjs/multer#limits
-  });
+//   });
 
 var app = express();
 app.use(session({secret: 'secretpassword'}));
@@ -57,40 +57,59 @@ res
     .end("Oops! Something went wrong! ERR:" + err);
 };
 
-app.post(
-    "/uploadcharacterimg",
-    upload.single("characterpic" /* name attribute of <file> element in your form */),
-    (req, res) => {
-      console.log("Got to post message to uploadcharacter image");
-      console.log("body characterpic: " + req.body.imgPath);
-      console.log("body: " + JSON.stringify(req.body));
 
-    //   console.log("req.file: " + req.file.path)
-    //   console.log("path: " + req.body.characterpic.path);
-      const tempPath = req.body.imgPath;
-      const targetPath = path.join(__dirname, "./public/images/" + req.body.imgPath);
-        console.log("originalS name: " + req.body.imgPath);
-      if (path.extname(req.body.imgPath).toLowerCase() === ".png" || path.extname(req.body.imgPath).toLowerCase() === ".jpg") {
-        fs.rename(tempPath, targetPath, err => {
-          if (err) return handleError(err, res);
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
+app.post('/uploadcharacterimg', function(req, res) {
+    if (!req.characterpic)
+      return res.status(400).send('No files were uploaded.');
+   
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let characterpic = req.files.characterpic;
+    console.log("character pic" + characterpic)
+    console.log("characterpic filename" + characterpic.name)
+    // Use the mv() method to place the file somewhere on your server
+    characterpic.mv('/app/public/images/image.png', function(err) {
+      if (err)
+        return res.status(500).send(err);
+   
+      res.send('File uploaded!');
+    });
+  });
+// app.post(
+//     "/uploadcharacterimg",upload.single("characterpic" /* name attribute of <file> element in your form */),
+//     (req, res) => {
+//       console.log("Got to post message to uploadcharacter image");
+//       console.log("body characterpic: " + req.body.imgPath);
+//       console.log("body: " + JSON.stringify(req.body));
+
+//     //   console.log("req.file: " + req.file.path)
+//     //   console.log("path: " + req.body.characterpic.path);
+//       const tempPath = req.body.imgPath;
+//       const targetPath = path.join(__dirname, "./public/images/" + req.body.imgPath);
+//         console.log("originalS name: " + req.body.imgPath);
+//       if (path.extname(req.body.imgPath).toLowerCase() === ".png" || path.extname(req.body.imgPath).toLowerCase() === ".jpg") {
+//         fs.rename(tempPath, targetPath, err => {
+//           if (err) return handleError(err, res);
   
-          ress
-            .status(200)
-            .contentType("text/plain")
-            .end("File uploaded!");
-        });
-      } else {
-        fs.unlink(tempPath, err => {
-          if (err) return handleError(err, res);
+//           ress
+//             .status(200)
+//             .contentType("text/plain")
+//             .end("File uploaded!");
+//         });
+//       } else {
+//         fs.unlink(tempPath, err => {
+//           if (err) return handleError(err, res);
   
-          res
-            .status(403)
-            .contentType("text/plain")
-            .end("Only .png files are allowed!");
-        });
-      }
-    }
-  );
+//           res
+//             .status(403)
+//             .contentType("text/plain")
+//             .end("Only .png files are allowed!");
+//         });
+//       }
+//     }
+//   );
 
 // When user selects start game
 app.get('/enterGame', function(req, res) {
