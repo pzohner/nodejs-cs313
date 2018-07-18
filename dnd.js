@@ -62,7 +62,7 @@ const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
 app.post('/uploadcharacterimg', function(req, res) {
-    console.log("files " + req.files)
+    console.log("files " + req.files.characterpic)
     console.log("files " + req.file)
     if (!req.files)
       return res.status(400).send('No files were uploaded.');
