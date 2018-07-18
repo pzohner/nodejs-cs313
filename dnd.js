@@ -71,7 +71,8 @@ app.post('/uploadcharacterimg', function(req, res) {
     let characterpic = req.files.characterpic;
     console.log("character pic" + characterpic)
     console.log("characterpic filename" + characterpic.name)
-    // Use the mv() method to place the file somewhere on your server
+
+    // Use the mv() method to place the file somewhere on your server - I prefer to use the full path
     characterpic.mv('/app/public/images/' + characterpic.name, function(err) {
       if (err)
         return res.status(500).send(err);
