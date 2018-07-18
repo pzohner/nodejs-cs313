@@ -42,7 +42,7 @@
                 url: "https://pacific-reef-42179.herokuapp.com/getGameCharacters",
                 type : "GET",
                 data: {
-                    "id" : data[0].id,
+                    "gameid" : data[0].id,
                 },
                 success: function(result) {
                        alert(JSON.stringify(result));
