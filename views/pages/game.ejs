@@ -4,7 +4,7 @@
     <% include ../partials/header.ejs %>  
     
 <script>
-            var data =    <% data %>
+            var data = <%- data %>;
         //    data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
         alert("data is " + data["gamename"]);
