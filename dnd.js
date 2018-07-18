@@ -104,7 +104,8 @@ app.get('/enterGame', function(req, res) {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.render('pages/game', {"data" : result.rows});
+            res.redirect('pages/game', {"data": result.rows})
+            // res.render('pages/game', {"data" : result.rows});
             // res.status(200).json(result.rows);
         }
     })
