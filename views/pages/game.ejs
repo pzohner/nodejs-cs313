@@ -4,14 +4,24 @@
     <% include ../partials/header.ejs %>  
     
 <script>
+    /*****************************************************************************
+     * This code right here works to get data from server to this ejs file... whew!
+     * ****************************************************************************/
         // This grabs the data rendered to us by the server, (NO JS in <% %> brackets)          
-        var data = <%- JSON.parse(data) %>;
+        var data = <%- JSON.stringify(data) %>;
+        // THIS HAS THE MONEY! Get the first element in the json list, then use the "." operator to get the data you need
+        // alert("data is index " + data[0].gamename);
+
+        // While these two are good attempts, they do not work
         // this gets the object (worthless, just gets [object, object])
-        alert("data is " + data);
+        // alert("data is " + data);
 
         // this returns undefined, because JSON.stringify returns a list
-        alert("data is " + data["gamename"]);
-        alert("data is index " + data[0].gamename);
+        // alert("data is " + data["gamename"]);
+
+        
+
+
     // courtesy of https://stackoverflow.com/questions/4656843/jquery-get-querystring-from-url
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -25,22 +35,24 @@
 
     $(document).ready(function() {
         // Set up the title of the page properly
-        $('h1').append(getParameterByName("gamename"));
+        $('h1').append(data[0].gamename);
 
-        // 
-        // $.ajax({
-        //         url: "https://pacific-reef-42179.herokuapp.com/getCurrentGame",
-        //         type : "GET",
-        //         success: function(data) {
-        //             //    alert(JSON.stringify(data));
-        //             for (var i = 0; i < data.length; i++)
-        //                 $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
-        //             },
-        //             error: function(data) {
-        //                 alert('could not get the games');
-        //                 alert(data);
-        //             }
-        //         });
+        
+        $.ajax({
+                url: "https://pacific-reef-42179.herokuapp.com/getGameCharacters",
+                type : "GET",
+                data: {
+                    "id" : data[0].id,
+                },
+                success: function(data) {
+                    //    alert(JSON.stringify(data));
+                    for (var i = 0; i < data.length; i++)
+                        $('#gameboard').append('<div> <span type="character" name="characters" class="characters">' + data.avatarname + '</div>')     
+                    },
+                    error: function(data) {
+                        alert('could not get current game characters DATA: ' + data);
+                    }
+                });
 
                 
 
@@ -53,6 +65,7 @@
 <body id="gameboard" background="images/balathan-img.gif">
             <h1></h1> <!-- Edited by Jquery in $(document).ready-->
 
+            
         <!-- <img id="character' . $users['username'] . '" src="' . $row['imgpath'] . '" style="transform: translate3d(' . $row['posx'] . 'px,' . $row['posy'] . 'px, 0px)"> -->
         <!-- <img id="character" src="' . $row['imgpath'] . '"> -->
         <!-- <script> var character = '$javascriptcharacter' ; -->

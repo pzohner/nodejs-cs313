@@ -471,22 +471,22 @@ app.post('/addUser', function(req, res) {
                 callback(null, result.rows)
             }
         });
-    } function getGameCharactersdb(gameid, callback) {
-        var sql = "SELECT * from characters where gameid = $1::int;";
-        var params = [gameid];
+    } 
+        
+    // function getGameCharactersdb(gameid, callback) {
+    //     var sql = "SELECT * from characters where gameid = $1::int;";
+    //     var params = [gameid];
 
-        pool.query(sql, params, function (err, result) {
-            if (err) {
-                console.log("could't get game characters from database");
-                console.log(err);
-            } else {
-                console.log("The result was: " + JSON.stringify(result.rows));
-                callback(null, result.rows)
-            }
-        });
-    }
-
-
+    //     pool.query(sql, params, function (err, result) {
+    //         if (err) {
+    //             console.log("could't get game characters from database");
+    //             console.log(err);
+    //         } else {
+    //             console.log("The result was: " + JSON.stringify(result.rows));
+    //             callback(null, result.rows)
+    //         }
+    //     });
+    // }
 /* /move - records a players into the database - its counter part is getGameCharacters, which returns position of each characters */
 app.get('/move', function(req, res) {
     var characterName = req.query.characterName;
