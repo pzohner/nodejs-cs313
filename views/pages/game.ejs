@@ -3,16 +3,16 @@
 <head>
     <% include ../partials/header.ejs %>  
     
-    <!-- <% if (data) { %>
+    <% if (data) { %>
         <script>
            data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
         alert("data is " + data["gamename"]);
         </script>
-     <% } %> -->
+     <% } %>
 <script>
 
-
+    // courtesy of https://stackoverflow.com/questions/4656843/jquery-get-querystring-from-url
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -24,12 +24,34 @@
     }
 
     $(document).ready(function() {
+        // Set up the title of the page properly
         $('h1').append(getParameterByName("gamename"));
+
+        // 
+        $.ajax({
+                url: "https://pacific-reef-42179.herokuapp.com/getCurrentGame",
+                type : "GET",
+                success: function(data) {
+                    //    alert(JSON.stringify(data));
+                    for (var i = 0; i < data.length; i++)
+                        $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
+                    },
+                    error: function(data) {
+                        alert('could not get the games');
+                        alert(data);
+                    }
+                });
+
+                
+
+
+
+
 });
 </script>
 </head>
 <body id="gameboard" background="images/balathan-img.gif">
-            <h1></h1>
+            <h1></h1> <!-- Edited by Jquery in $(document).ready-->
 
         <!-- <img id="character' . $users['username'] . '" src="' . $row['imgpath'] . '" style="transform: translate3d(' . $row['posx'] . 'px,' . $row['posy'] . 'px, 0px)"> -->
         <!-- <img id="character" src="' . $row['imgpath'] . '"> -->
