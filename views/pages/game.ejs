@@ -2,16 +2,13 @@
 <html>
 <head>
     <% include ../partials/header.ejs %>  
-
-    <% if (data) { %>
-            var data =    <%  JSON.parse(data) %>
+    
+<script>
+            var data =    <% data %>
         //    data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
         alert("data is " + data["gamename"]);
         alert("data is index" + data[0].gamename);
-     <% } %>
-<script>
-
     // courtesy of https://stackoverflow.com/questions/4656843/jquery-get-querystring-from-url
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
