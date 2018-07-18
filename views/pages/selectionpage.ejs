@@ -68,6 +68,11 @@
             }
         });
 
+        $("input[name='dmradio']").on("change", function () {
+            alert(this.value);
+            isDMSelected();
+        });
+
     });
 
     function isDMSelected() {
