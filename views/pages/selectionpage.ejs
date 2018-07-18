@@ -40,7 +40,7 @@
                 //    alert(JSON.stringify(data));
                 for (var i = 0; i < data.length; i++)
                     $('#listOfDMProfiles').append(
-                        '<div> <input type="radio" name="player-selection" class="dmradio">' + data[
+                        '<div> <input type="radio" name="dmselection" class="dmradio">' + data[
                             i].dmname + '</div>')
             },
             error: function (data) {
@@ -68,8 +68,8 @@
             }
         });
 
-        // if someone taps on a dm raduio button, allow them to create a game.
-        $("input[name='dmradio']").on("change", function () {
+        // if someone taps on a dm radio button, allow them to create a game.
+        $("input[name='dmselection']").on("change", function () {
             alert(this.value);
             isDMSelected();
         });
