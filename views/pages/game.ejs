@@ -3,8 +3,8 @@
 <head>
     <% include ../partials/header.ejs %>  
 
-    <%= JSON.stringify(data) %>
     <% if (data) { %>
+        <%= JSON.stringify(data) %>
         <script>
         //    data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
