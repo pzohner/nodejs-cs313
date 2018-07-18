@@ -4,11 +4,14 @@
     <% include ../partials/header.ejs %>  
     
 <script>
-            var data = <%- JSON.stringify(data) %>;
-        //    data = JSON.parse('<%- JSON.stringify(data) %>');
-           alert("data is " + data);
+        // This grabs the data rendered to us by the server, (NO JS in <% %> brackets)          
+        var data = <%- JSON.parse(data) %>;
+        // this gets the object (worthless, just gets [object, object])
+        alert("data is " + data);
+
+        // this returns undefined, because JSON.stringify returns a list
         alert("data is " + data["gamename"]);
-        alert("data is index" + data[0].gamename);
+        alert("data is index " + data[0].gamename);
     // courtesy of https://stackoverflow.com/questions/4656843/jquery-get-querystring-from-url
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
