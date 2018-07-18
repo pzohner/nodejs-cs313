@@ -21,7 +21,7 @@
                 //    alert(JSON.stringify(data));
                 for (var i = 0; i < data.length; i++)
                     $('#listOfCharacters').append(
-                        '<div> <input type="radio" name="player-selection" class="characterradio">' +
+                        '<div> <input type="radio" name="player-selection" class="characterradio" value="' + data[i].avatarname + '">' +
                         data[i].avatarname + '</div>')
             },
             error: function (data) {
@@ -130,7 +130,7 @@
                 if (characterradio[i].checked && gamesradio[j].checked) {
                     // if player selects a character, disable game-creation button (only available to DMs)
                     var characterName = characterradio[i].value;
-                    var gameid = gamesradio[j].attr("id");
+                    var gameid = gamesradio[j].id;
                     alert(characterName + " " + gameid);
                     // $.ajax({
                     //     url: "https://pacific-reef-42179.herokuapp.com/setCharacterGameid",
