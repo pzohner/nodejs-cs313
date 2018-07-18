@@ -234,7 +234,7 @@
                     <h4 class="modal-title">Create a character</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="createCharacterForm" enctype="multipart/form-data" method="post">
+                    <form id="createCharacterForm" enctype="multipart/form-data" method="POST" action="/uploadcharacterimg">
                         Character name:
                         <input type="text" name='avatarname'>
                         <br>
@@ -258,27 +258,27 @@
          * you need to target the submit button itself, instead of attaching a 
          * submit event on the form. Not sure why.
          * ****************************************************************/
-        $("button#createCharacterButtonModal").click(function (event) {
-            event.preventDefault();
-            $.ajax({
-                url: "https://pacific-reef-42179.herokuapp.com/uploadcharacterimg",
-                type: "POST",
-                data: {
-                    "characterName": $('[name="avatarname"]').val(),
-                    "imgPath": $('[name="characterpic"]').val().split('\\').pop(),
-                },
-                statusCode: {
-                    500: function (res) {
-                        alert("Server error: " + JSON.stringify(res));
-                    },
-                    200: function (res) {
-                        alert("successfully added character to database");
-                        alert(JSON.stringify(res));
+        // $("button#createCharacterButtonModal").click(function (event) {
+        //     // event.preventDefault();
+        //     $.ajax({
+        //         url: "https://pacific-reef-42179.herokuapp.com/uploadcharacterimg",
+        //         type: "POST",
+        //         data: {
+        //             "characterName": $('[name="avatarname"]').val(),
+        //             "imgPath": $('[name="characterpic"]').val().split('\\').pop(),
+        //         },
+        //         statusCode: {
+        //             500: function (res) {
+        //                 alert("Server error: " + JSON.stringify(res));
+        //             },
+        //             200: function (res) {
+        //                 alert("successfully added character to database");
+        //                 alert(JSON.stringify(res));
 
-                    }
-                }
-            });
-        });
+        //             }
+        //         }
+        //     });
+        // });
     </script>
     </div>
 
