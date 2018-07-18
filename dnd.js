@@ -221,7 +221,7 @@ app.get('/setCharacterGameid', function(req, res) {
     console.log("name = " + avatarname)
     console.log("gameid = " + gameid)
 
-    var sql = "Update characters set gameid = $1::int where avatarname = 2$::text";
+    var sql = "Update characters set gameid = $1::int where avatarname = $2::text";
     var params = [gameid, avatarname];
 
     pool.query(sql, params, function(err, result) {
