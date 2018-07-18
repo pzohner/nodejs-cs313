@@ -3,8 +3,9 @@
 <head>
     <% include ../partials/header.ejs %>  
 
+    <%= var data = JSON.parse(data);
+    alert(data)%>
     <% if (data) { %>
-        <%= JSON.stringify(data) %>
         <script>
         //    data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
@@ -30,19 +31,19 @@
         $('h1').append(getParameterByName("gamename"));
 
         // 
-        $.ajax({
-                url: "https://pacific-reef-42179.herokuapp.com/getCurrentGame",
-                type : "GET",
-                success: function(data) {
-                    //    alert(JSON.stringify(data));
-                    for (var i = 0; i < data.length; i++)
-                        $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
-                    },
-                    error: function(data) {
-                        alert('could not get the games');
-                        alert(data);
-                    }
-                });
+        // $.ajax({
+        //         url: "https://pacific-reef-42179.herokuapp.com/getCurrentGame",
+        //         type : "GET",
+        //         success: function(data) {
+        //             //    alert(JSON.stringify(data));
+        //             for (var i = 0; i < data.length; i++)
+        //                 $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
+        //             },
+        //             error: function(data) {
+        //                 alert('could not get the games');
+        //                 alert(data);
+        //             }
+        //         });
 
                 
 
