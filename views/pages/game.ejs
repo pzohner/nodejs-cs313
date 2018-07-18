@@ -3,10 +3,9 @@
 <head>
     <% include ../partials/header.ejs %>  
 
-    <%= var data = JSON.parse(data);
-    alert(data)%>
     <% if (data) { %>
         <script>
+                <%= var data = JSON.parse(data);%>
         //    data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
         alert("data is " + data["gamename"]);
