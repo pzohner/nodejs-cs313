@@ -2,12 +2,14 @@
 <html>
 <head>
     <% include ../partials/header.ejs %>  
-    
+
+    <%= JSON.stringify(data) %>
     <% if (data) { %>
         <script>
-           data = JSON.parse('<%- JSON.stringify(data) %>');
+        //    data = JSON.parse('<%- JSON.stringify(data) %>');
            alert("data is " + data);
         alert("data is " + data["gamename"]);
+        alert("data is index" + data[0].gamename);
         </script>
      <% } %>
 <script>
