@@ -67,6 +67,12 @@
                     $('#listOfGames').append(
                         '<div> <input id="' + data[i].id + '" ' + 'type="radio" name="games-selection-btn" class="gamesradio" value=' + data[i].gamename +'>' +
                         data[i].gamename + '</div>')
+
+                // using jquery - if someone clicks on DM radio button, let them create a game. 
+                $("input[name='gamesradio']").on("change", function () {
+                    // alert(this.value);
+                    isCharacterANDGameSelected();
+                });
             },
             error: function (data) {
                 alert('could not get the games');
@@ -74,11 +80,6 @@
             }
 
 
-            // using jquery - if someone clicks on DM radio button, let them create a game. 
-            $("input[name='gamesradio']").on("change", function () {
-                // alert(this.value);
-                isCharacterANDGameSelected();
-            });
         });
 
         
