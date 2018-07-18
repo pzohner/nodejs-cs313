@@ -23,6 +23,11 @@
                     $('#listOfCharacters').append(
                         '<div> <input type="radio" name="player-selection" class="characterradio">' +
                         data[i].avatarname + '</div>')
+
+                $("input[name='dmselection']").on("change", function () {
+                    alert(this.value);
+                    isDMSelected();
+                });
             },
             error: function (data) {
                 alert('could not get the characters');
@@ -321,11 +326,8 @@
     // });
 
     // if someone taps on a dm radio button, allow them to create a game.
-    $("input[name='dmselection']").on("change", function () {
-        alert(this.value);
-        isDMSelected();
-    });
     
+
 </script>
 
 </html>
