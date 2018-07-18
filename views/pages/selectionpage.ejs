@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <% include ../partials/header.ejs %>    
+    <% include ../partials/header.ejs %>
 </head>
 
 <script>
     $(document).ready(function () {
         // Disable create game button until they have selected a DM profile
         $("#game-creation-btn").attr("disabled", "disabled");
-        
+
         /*******************************************
          *  Get list of characters and display them
          * *****************************************/
         $.ajax({
-           url: "https://pacific-reef-42179.herokuapp.com/getCharacters",
-           type : "GET",
-           success: function(data) {
-            //    alert("Got the characters!");
-            //    alert(JSON.stringify(data));
-               for (var i = 0; i < data.length; i++)
-                $('#listOfCharacters').append('<div> <input type="radio" name="player-selection" class="characterradio">' + data[i].avatarname + '</div>')     
-             },
-            error: function(data) {
+            url: "https://pacific-reef-42179.herokuapp.com/getCharacters",
+            type: "GET",
+            success: function (data) {
+                //    alert("Got the characters!");
+                //    alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++)
+                    $('#listOfCharacters').append(
+                        '<div> <input type="radio" name="player-selection" class="characterradio">' +
+                        data[i].avatarname + '</div>')
+            },
+            error: function (data) {
                 alert('could not get the characters');
                 alert(data);
             }
@@ -29,15 +32,17 @@
         /*******************************************
          *  Get list of DM profiles and display them
          * *****************************************/
-         $.ajax({
-           url: "https://pacific-reef-42179.herokuapp.com/getDMs",
-           type : "GET",
-           success: function(data) {
-            //    alert(JSON.stringify(data));
-               for (var i = 0; i < data.length; i++)
-                $('#listOfDMProfiles').append('<div> <input type="radio" name="player-selection" class="dmradio">' + data[i].dmname + '</div>')     
-             },
-            error: function(data) {
+        $.ajax({
+            url: "https://pacific-reef-42179.herokuapp.com/getDMs",
+            type: "GET",
+            success: function (data) {
+                //    alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++)
+                    $('#listOfDMProfiles').append(
+                        '<div> <input type="radio" name="player-selection" class="dmradio">' + data[
+                            i].dmname + '</div>')
+            },
+            error: function (data) {
                 alert('could not get the characters');
                 alert(data);
             }
@@ -46,15 +51,17 @@
         /*******************************************
          *  Get list of games and display them
          * *****************************************/
-         $.ajax({
-           url: "https://pacific-reef-42179.herokuapp.com/getGames",
-           type : "GET",
-           success: function(data) {
-            //    alert(JSON.stringify(data));
-               for (var i = 0; i < data.length; i++)
-                $('#listOfGames').append('<div> <input type="radio" name="games-selection-btn" class="gamesradio">' + data[i].gamename + '</div>')     
-             },
-            error: function(data) {
+        $.ajax({
+            url: "https://pacific-reef-42179.herokuapp.com/getGames",
+            type: "GET",
+            success: function (data) {
+                //    alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++)
+                    $('#listOfGames').append(
+                        '<div> <input type="radio" name="games-selection-btn" class="gamesradio">' +
+                        data[i].gamename + '</div>')
+            },
+            error: function (data) {
                 alert('could not get the games');
                 alert(data);
             }
@@ -62,234 +69,245 @@
 
     });
 
-function isDMSelected() {
-    var dmradio = document.getElementsByClassName("dmradio");
+    function isDMSelected() {
+        var dmradio = document.getElementsByClassName("dmradio");
 
-    for(var i = 0; i < dmradio.length; i++) {
-        if (dmradio[i].checked) {
-        var dmname1 = dmradio[i].value;
-        document.getElementById("game-creation-btn").disabled = false;
+        for (var i = 0; i < dmradio.length; i++) {
+            if (dmradio[i].checked) {
+                var dmname1 = dmradio[i].value;
+                document.getElementById("game-creation-btn").disabled = false;
 
-        var data = {
-            dmname: dmname1
-        };
+                var data = {
+                    dmname: dmname1
+                };
 
-        $.post("set_dm_id.php", data);
-    }
-    }
-}
-
-function isCharacterSelected() {
-    var characterradio = document.getElementsByClassName("characterradio");
-
-    for(var i = 0; i < characterradio.length; i++) {
-        if (characterradio[i].checked) {
-            // if player selects a character, disable game-creation button (only available to DMs)
-            document.getElementById("game-creation-btn").disabled = true;
-            var characterradio1 = characterradio[i].value;
-
-            var data = {
-                character: characterradio1
-            };
-
-            $.post("set_character.php", data);
+                $.post("set_dm_id.php", data);
+            }
         }
     }
-}
 
-// function isGameSelected() {
-//     var gamesradio = document.getElementsByClassName("gamesradio");
+    function isCharacterSelected() {
+        var characterradio = document.getElementsByClassName("characterradio");
 
-//     for(var i = 0; i < gamesradio.length; i++) {
-//         if (gamesradio[i].checked) {
-//             var gamesradio1 = gamesradio[i].value;
+        for (var i = 0; i < characterradio.length; i++) {
+            if (characterradio[i].checked) {
+                // if player selects a character, disable game-creation button (only available to DMs)
+                document.getElementById("game-creation-btn").disabled = true;
+                var characterradio1 = characterradio[i].value;
 
-//             var data = {
-//                 gamename: gamesradio1
-//             };
+                var data = {
+                    character: characterradio1
+                };
 
-//             $.post("set_gamename.php", data);
-//         }
-//     }
-// }
+                $.post("set_character.php", data);
+            }
+        }
+    }
+
+    // function isGameSelected() {
+    //     var gamesradio = document.getElementsByClassName("gamesradio");
+
+    //     for(var i = 0; i < gamesradio.length; i++) {
+    //         if (gamesradio[i].checked) {
+    //             var gamesradio1 = gamesradio[i].value;
+
+    //             var data = {
+    //                 gamename: gamesradio1
+    //             };
+
+    //             $.post("set_gamename.php", data);
+    //         }
+    //     }
+    // }
 </script>
 </head>
-<body>
-    <div id='selection'> 
-        <h2> Select the DM or character you wish to use to play or create a new one! </h2> 
 
-            <div id="playerordm">
-        
+<body>
+    <div id='selection'>
+        <h2> Select the DM or character you wish to use to play or create a new one! </h2>
+
+        <div id="playerordm">
+
             <!-- PLAYER SELECTION -->
             <div id="character-selection">
-                <h5 class='tiletitles'> Choose a character...<br>
+                <h5 class='tiletitles'> Choose a character...
+                    <br>
                     <div id="listOfCharacters"> </div>
 
-                    <button id="createCharacterButton" type="button" data-toggle="modal" data-target="#createCharacterModal"> Create a new Character </button><br>
+                    <button id="createCharacterButton" type="button" data-toggle="modal" data-target="#createCharacterModal"> Create a new Character </button>
+                    <br>
 
-             <!-- <input type="radio" name="player-selection" class="characterradio" onclick="isCharacterSelected()" value="'.$row['avatarname'].'">' . $row['avatarname'] . ' ' . '<img src="'. $row['imgpath'] .'">' . '<br/>'; -->
+                    <!-- <input type="radio" name="player-selection" class="characterradio" onclick="isCharacterSelected()" value="'.$row['avatarname'].'">' . $row['avatarname'] . ' ' . '<img src="'. $row['imgpath'] .'">' . '<br/>'; -->
             </div>
 
             <span> OR... </span>
 
             <!-- DM SELECTION -->
             <div id="dm-selection">
-            <span class='tiletitles'> Choose a Dungeon Masters Profile...<br>
-            <div id="listOfDMProfiles"> </div>
-                <!-- <input type="radio" name="player-selection" class="dmradio" onclick="isDMSelected()" value='.$row['dmname'].'>' . $row['dmname'] . '<br/> -->
-            <button id="dm-creation-btn" type="button" data-toggle="modal" data-target="#createDMProfileModal"> Create new DM Profile </button><br>
-            <button id="game-creation-btn" type="button"> Create a new Game </button><br>
+                <span class='tiletitles'> Choose a Dungeon Masters Profile...
+                    <br>
+                    <div id="listOfDMProfiles"> </div>
+                    <!-- <input type="radio" name="player-selection" class="dmradio" onclick="isDMSelected()" value='.$row['dmname'].'>' . $row['dmname'] . '<br/> -->
+                    <button id="dm-creation-btn" type="button" data-toggle="modal" data-target="#createDMProfileModal"> Create new DM Profile </button>
+                    <br>
+                    <button id="game-creation-btn" type="button"> Create a new Game </button>
+                    <br>
             </div>
-            </div>
+        </div>
 
-            <!-- GAME SELECTION -->
-            <div id="game-selection">
-            <span class='tiletitles'> Choose a game to join...<br>
+        <!-- GAME SELECTION -->
+        <div id="game-selection">
+            <span class='tiletitles'> Choose a game to join...
+                <br>
                 <div id="listOfGames"></div>
                 <!-- <input type="radio" name="games-selection-btn" class="gamesradio" onclick="isGameSelected()" value='.$row['gamename'].'>' . $row['gamename'] . '<br/> -->
-            <button id="enterGame" type="button" > Enter Game </button><br>
-            <!-- onclick="window.location.href=\'play-game.php\'" -->
-            </div>
-            
-        
+                <button id="enterGame" type="button"> Enter Game </button>
+                <br>
+                <!-- onclick="window.location.href=\'play-game.php\'" -->
+        </div>
+
+
     </div>
 
     <!-- Create Character Modal -->
     <div class="modal fade" id="createCharacterModal" role="dialog">
-            <div class="modal-dialog">
-            
+        <div class="modal-dialog">
+
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create a character</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create a character</h4>
                 </div>
                 <div class="modal-body">
                     <form id="createCharacterForm" enctype="multipart/form-data" method="post">
-                        Character name: <input type="text" name='avatarname'> <br>
-                        <hr>
-                        Upload an image: <input type="file" name='characterpic'>
-                    </div>
-                    <div class="modal-footer">
-                        <button id='createCharacterButtonModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
-                        <button  type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        Character name:
+                        <input type="text" name='avatarname'>
+                        <br>
+                        <hr> Upload an image:
+                        <input type="file" name='characterpic'>
+                </div>
+                <div class="modal-footer">
+                    <button id='createCharacterButtonModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                     </form>
                 </div>
             </div>
-            
-            </div>
-            <script>
 
-                /******************************************************************
-                 * For some reason, the following two lines don't work
-                 * // $('#createCharacterButtonModal').click(function() {
-                 * // $('#createCharacterForm').submit(function(event){
-                 * I am not sure why, but in order to submit the form inside of the modal above
-                 * you need to target the submit button itself, instead of attaching a 
-                 * submit event on the form. Not sure why.
-                 * ****************************************************************/
-                        $("button#createCharacterButtonModal").click(function(event){
-                            event.preventDefault();
-                        $.ajax({
-                            url: "https://pacific-reef-42179.herokuapp.com/uploadcharacterimg",
-                            type: "POST",
-                            data: {
-                                "characterName" : $('[name="avatarname"]').val(),
-                                "imgPath" : $('[name="characterpic"]').val(),
-                            }, 
-                            statusCode: {
-                                500: function(res) {
-                                    alert("Server error: " + JSON.stringify(res));
-                                },
-                                200: function(res) {
-                                    alert("successfully added character to database");
-                                    alert(JSON.stringify(res));
-                    
-                                }
-                            }
-                        });
-                    });
-            </script>
         </div>
+    <script>
+        /******************************************************************
+         * For some reason, the following two lines don't work
+         * // $('#createCharacterButtonModal').click(function() {
+         * // $('#createCharacterForm').submit(function(event){
+         * I am not sure why, but in order to submit the form inside of the modal above
+         * you need to target the submit button itself, instead of attaching a 
+         * submit event on the form. Not sure why.
+         * ****************************************************************/
+        $("button#createCharacterButtonModal").click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: "https://pacific-reef-42179.herokuapp.com/uploadcharacterimg",
+                type: "POST",
+                data: {
+                    "characterName": $('[name="avatarname"]').val(),
+                    "imgPath": $('[name="characterpic"]').val(),
+                },
+                statusCode: {
+                    500: function (res) {
+                        alert("Server error: " + JSON.stringify(res));
+                    },
+                    200: function (res) {
+                        alert("successfully added character to database");
+                        alert(JSON.stringify(res));
+
+                    }
+                }
+            });
+        });
+    </script>
+    </div>
 
     <!-- Create DM Profile Modal -->
     <div class="modal fade" id="createDMProfileModal" role="dialog">
         <div class="modal-dialog">
-        
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Create a DM Profile</h4>
-            </div>
-            <div class="modal-body">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create a DM Profile</h4>
+                </div>
+                <div class="modal-body">
                     <form id="createDMProfileForm" enctype="multipart/form-data">
-                Dungeon Master's name: <input type="text" name='dmName'> <br>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                <button id='createDMProfileModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
-            </form>
+                        Dungeon Master's name:
+                        <input type="text" name='dmName'>
+                        <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    <button id='createDMProfileModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
+                    </form>
+                </div>
             </div>
         </div>
-        
-        </div>
-        
     </div>
 
 </body>
+
+
 <script>
-
-$('#enterGame').click(function() { 
-    var radioValue = $("input[name='games-selection-btn']:checked").val();
-    $.ajax({
-        url: "https://pacific-reef-42179.herokuapp.com/enterGame",
-        type: "POST",
-        data: {
-            "gamename" : radioValue
-        },
-        success: function() {
-            alert("successfully entered game")
-        },
-        error: function(err) {
-            alert("couldn't enter game for some reason " + err)
-        }
-    })
-});
-
-            // <button id="enterGame" type="button" > Enter Game </button><br>
-
-// $('#createCharacterButtonModal').click(function() {
-    $('#createDMProfileForm').submit(function(event){
-        event.preventDefault();
-    $.ajax({
-        url: "https://pacific-reef-42179.herokuapp.com/addDM",
-        type: "POST",
-        data: {
-            "dmName" : $('[name="dmname"]').val(),
-        }, 
-        statusCode: {
-            500: function(res) {
-                alert("Server error: " + JSON.stringify(res));
+    $('#enterGame').click(function () {
+        var radioValue = $("input[name='games-selection-btn']:checked").val();
+        $.ajax({
+            url: "https://pacific-reef-42179.herokuapp.com/enterGame",
+            type: "GET",
+            data: {
+                "gamename": radioValue
             },
-            200: function(res) {
-                alert("successfully added DM to database");
-                alert(JSON.stringify(res));
-
+            success: function () {
+                alert("successfully entered game")
+            },
+            error: function (err) {
+                alert("couldn't enter game for some reason " + err)
             }
-        }
+        })
     });
-});
 
-// $('#dm-creation-btn').click(function() {
-//     $.ajax({
-//         url: "https://pacific-reef-42179.herokuapp.com/addDM",
-//         type: "GET",
-//         data: {
-//             "characterName" : $('[name="avatarname"]').val(),
-//             "imgPath" : "testImgPath.jpg",
-//             "userid" : ""
-//         }, 
-//     });
-// });
+    // <button id="enterGame" type="button" > Enter Game </button><br>
+
+    // $('#createCharacterButtonModal').click(function() {
+    $('#createDMProfileForm').submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: "https://pacific-reef-42179.herokuapp.com/addDM",
+            type: "POST",
+            data: {
+                "dmName": $('[name="dmname"]').val(),
+            },
+            statusCode: {
+                500: function (res) {
+                    alert("Server error: " + JSON.stringify(res));
+                },
+                200: function (res) {
+                    alert("successfully added DM to database");
+                    alert(JSON.stringify(res));
+
+                }
+            }
+        });
+    });
+
+    // $('#dm-creation-btn').click(function() {
+    //     $.ajax({
+    //         url: "https://pacific-reef-42179.herokuapp.com/addDM",
+    //         type: "GET",
+    //         data: {
+    //             "characterName" : $('[name="avatarname"]').val(),
+    //             "imgPath" : "testImgPath.jpg",
+    //             "userid" : ""
+    //         }, 
+    //     });
+    // });
 </script>
+
 </html>
