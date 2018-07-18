@@ -23,11 +23,6 @@
                     $('#listOfCharacters').append(
                         '<div> <input type="radio" name="player-selection" class="characterradio">' +
                         data[i].avatarname + '</div>')
-
-                $("input[name='dmselection']").on("change", function () {
-                    alert(this.value);
-                    isDMSelected();
-                });
             },
             error: function (data) {
                 alert('could not get the characters');
@@ -47,6 +42,11 @@
                     $('#listOfDMProfiles').append(
                         '<div> <input type="radio" name="dmselection" class="dmradio">' + data[
                             i].dmname + '</div>')
+
+                $("input[name='dmselection']").on("change", function () {
+                    alert(this.value);
+                    isDMSelected();
+                });
             },
             error: function (data) {
                 alert('could not get the characters');
