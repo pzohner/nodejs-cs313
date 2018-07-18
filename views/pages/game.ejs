@@ -45,11 +45,11 @@
                     "gameid" : data[0].id,
                 },
                 success: function(result) {
-                       alert(JSON.stringify(result));
+                    //    alert(JSON.stringify(result));
                     for (var i = 0; i < result.length; i++)
                     
                         // switch this to images
-                        $('#gameboard').append('<div> <span type="character" name="characters" class="characters">' + result[1].avatarname + '</div>')     
+                        $('#gameboard').append('<div> <span type="character" name="characters" class="characters">' + result[i].avatarname + '</div>')     
                     },
                     error: function(data) {
                         alert('could not get current game characters DATA: ' + data);
