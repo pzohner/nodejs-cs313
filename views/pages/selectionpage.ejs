@@ -58,7 +58,7 @@
                 //    alert(JSON.stringify(data));
                 for (var i = 0; i < data.length; i++)
                     $('#listOfGames').append(
-                        '<div> <input type="radio" name="games-selection-btn" class="gamesradio">' +
+                        '<div> <input type="radio" name="games-selection-btn" class="gamesradio" value=' + data[i].gamename +'>' +
                         data[i].gamename + '</div>')
             },
             error: function (data) {
