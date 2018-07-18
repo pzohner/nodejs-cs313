@@ -44,10 +44,10 @@
                 data: {
                     "id" : data[0].id,
                 },
-                success: function(data) {
-                    //    alert(JSON.stringify(data));
-                    for (var i = 0; i < data.length; i++)
-                        $('#gameboard').append('<div> <span type="character" name="characters" class="characters">' + data.avatarname + '</div>')     
+                success: function(result) {
+                       alert(JSON.stringify(result));
+                    for (var i = 0; i < result.length; i++)
+                        $('#gameboard').append('<div> <span type="character" name="characters" class="characters">' + result[0].avatarname + '</div>')     
                     },
                     error: function(data) {
                         alert('could not get current game characters DATA: ' + data);
