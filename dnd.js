@@ -76,7 +76,7 @@ app.post('/uploadcharacterimg', function(req, res) {
       if (err)
         return res.status(500).send(err);
    
-      res.status(200).json({"success": "File " + characterpic.name + "was uploaded successfully"});
+      res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully"});
     });
   });
 // app.post(
