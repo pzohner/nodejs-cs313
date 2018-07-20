@@ -62,7 +62,7 @@
 
                             // var charactername =  + character;
                             var gameboard = document.querySelector("#gameboard");
-                            // var character = document.querySelector(charactername);
+                            var character = document.querySelector(charactername);
 
                             gameboard.addEventListener("click", getClickPosition, false);
 
@@ -71,6 +71,7 @@
                                 var yPos = e.clientY - (charactername.offsetHeight / 2);;
                         
                                 var translate3dValue = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+                                character.style.transform = translate3dValue;
                                 
                                 // var data = {
                                 //         x: xPos,
@@ -93,7 +94,6 @@
                                     });
                                     // $.post("updatecoordinates.php", data);
                         
-                                character.style.transform = translate3dValue;
                             }
                         },
                         error: function(err) {
