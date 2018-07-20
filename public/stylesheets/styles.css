@@ -2,17 +2,26 @@
 /*********************************************
 * LOGIN PAGE
 *********************************************/
-#login {
+#loginform {
     display: flex;
     flex-direction: column;
     border-style: ridge;
     margin: auto;
-    width: 250px;
+    width: 300px;
     padding: 25px;
+}
+
+#loginform span {
+    margin-bottom: 10px;    
+}
+
+#loginform input {
+    margin-bottom: 10px;
 }
 
 #loginbutton {
     background-color: orange;
+    font-size: 20px;
 }
 
 /*********************************************
