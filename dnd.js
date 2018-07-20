@@ -61,25 +61,25 @@ res
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
-app.post('/uploadcharacterimg', function(req, res) {
-    console.log("files " + req.files.characterpic)
-    console.log("files " + req.file)
-    if (!req.files)
-      return res.status(400).send('No files were uploaded.');
+// app.post('/uploadcharacterimg', function(req, res) {
+//     console.log("files " + req.files.characterpic)
+//     console.log("files " + req.file)
+//     if (!req.files)
+//       return res.status(400).send('No files were uploaded.');
    
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let characterpic = req.files.characterpic;
-    console.log("character pic" + characterpic)
-    console.log("characterpic filename" + characterpic.name)
+//     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+//     let characterpic = req.files.characterpic;
+//     console.log("character pic" + characterpic)
+//     console.log("characterpic filename" + characterpic.name)
 
-    // Use the mv() method to place the file somewhere on your server - I prefer to use the full path
-    characterpic.mv('/app/public/images/' + characterpic.name, function(err) {
-      if (err)
-        return res.status(500).send(err);
+//     // Use the mv() method to place the file somewhere on your server - I prefer to use the full path
+//     characterpic.mv('/app/public/images/' + characterpic.name, function(err) {
+//       if (err)
+//         return res.status(500).send(err);
    
-      res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully"});
-    });
-  });
+//       res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully"});
+//     });
+//   });
 
   /***************************************************
  *  addCharacter - adds a character to the database 
@@ -108,7 +108,8 @@ app.post('/addCharacter', function (req, res) {
             res.status(500).send("No files were sent to server");
             
         } else {
-            res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully", "result" : result});
+            res.render('pages/selectionpage');
+            // res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully", "result" : result});
         }
     });
   
