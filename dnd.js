@@ -206,11 +206,14 @@ app.get('/enterGame', function(req, res) {
 app.get('/getcharactername', function(req, res) {
     var username = session.username;
     var gameid = req.query.gameid
-    
+    console.log("The username is " + username)
+
     var sql = "Select * from users where username = $1::text"
     var params = [username]
 
     pool.query(sql, params, function(err, result) {
+        console.log("the result of the first userid query is " + result.id)
+
         if (err) {
             res.status(500).json({"error" : "we couldn't get your userID" + err});
         } else {
