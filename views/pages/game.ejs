@@ -47,7 +47,7 @@
                     //    alert(JSON.stringify(result));
                     for (var i = 0; i < result.length; i++) {
                         // switch this to images
-                        $('#gameboard').append('<img id="' + result[i].avatarname + '" src="' + result[i].imgpath + '" style="transform: translate3d(' + result[i].posx + 'px,' + result[i].posy + 'px, 0px)>' + result[i].avatarname)     
+                        $('#gameboard').append('<img id="' + result[i].avatarname + '" src="' + result[i].imgpath + '" style="transform: translate3d(' + result[i].posx + 'px,' + result[i].posy + 'px, 0px)">' + result[i].avatarname)     
                     }
 
                     $.ajax({
