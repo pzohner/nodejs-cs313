@@ -57,7 +57,7 @@ res
     .end("Oops! Something went wrong! ERR:" + err);
 };
 
-
+// Used for file uploads - install this package express-fileupload - it made this really easy :D
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
@@ -80,6 +80,88 @@ app.post('/uploadcharacterimg', function(req, res) {
       res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully"});
     });
   });
+
+  /***************************************************
+ *  addCharacter - adds a character to the database 
+ * *************************************************/
+
+app.post('/addCharacter', function (req, res) {
+    var characterName = req.body.avatarname;
+    let characterpic = req.files.characterpic;
+    var username = session.username;
+
+    console.log("Name of character to be put into the database: " + characterName)
+    console.log("files to be uploaded " + req.files.characterpic)
+    console.log("name of file" + req.files.characterpic.name)
+
+    imgPath = "images/" + characterpic.name
+    // grab username from the session (easier than passing it with the query strings)
+    addCharacterdb(characterName, imgPath, username, function (err, result) {
+        characterpic.mv('/app/public/images/' + characterpic.name, function(err) {
+            if (err)
+              return res.status(500).send("Problem uploading image " + err);
+          });
+
+        if (err) {
+            res.status(500).send("Character couldn't be put into database");
+        } 
+        else if (!req.files) {
+            res.status(500).send("No files were sent to server");
+            
+        } else {
+            res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully", "result" : result});
+        }
+    });
+   
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    // console.log("character pic" + characterpic)
+    // console.log("characterpic filename" + characterpic.name)
+
+    // Use the mv() method to place the file somewhere on your server - I prefer to use the full path
+    
+
+
+
+
+    
+  
+});
+
+function addCharacterdb(characterName, imgPath, username, callback) {
+
+    // Get the correct userid
+    var sql ="SELECT id from users where username = $1::text";
+
+    var params = [username];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            console.log("Couldn't get the correct userID");
+            callback("failed to get correct userid " + err, null);
+
+            // If we were able to find the correct username and ID, then 
+        } else {
+            console.log("Got the correct userID");
+            var userid = result.rows[0].id;
+            console.log("userid to insert" + result.rows.id);
+            /****************************************************************************
+            * Execute another sql statement to insert the character to the database 
+            *****************************************************************************/
+            var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
+            var params = [characterName, 0, 0, imgPath, userid, 0];
+    
+            pool.query(sql, params, function(err, result) {
+                if (err) {
+                    console.log("Failed to add Character to db;");
+                    callback("failed to add character to database " + err, null);
+                } else {
+                    console.log("added character to database");
+                    callback(null, result.rows);
+                }
+            });
+        }
+    });
+}
 // app.post(
 //     "/uploadcharacterimg",upload.single("characterpic" /* name attribute of <file> element in your form */),
 //     (req, res) => {
@@ -432,60 +514,7 @@ app.post('/addUser', function(req, res) {
 });
 
 
-/***************************************************
- *  addCharacter - adds a character to the database 
- * *************************************************/
 
-    app.post('/addCharacter', function (req, res) {
-        var characterName = req.body.characterName;
-        var imgPath = req.body.imgPath;
-        // grab username from the session (easier than passing it with the query strings)
-        var username = session.username;
-
-        addCharacterdb(characterName, imgPath, username, function (err, result) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.status(200).json(result);
-            }
-        });
-    });
-
-    function addCharacterdb(characterName, imgPath, username, callback) {
-
-        // Get the correct userid
-        var sql ="SELECT id from users where username = $1::text";
-
-        var params = [username];
-
-        pool.query(sql, params, function(err, result) {
-            if (err) {
-                console.log("Couldn't get the correct userID");
-                callback("failed to get correct userid " + err, null);
-
-                // If we were able to find the correct username and ID, then 
-            } else {
-                console.log("Got the correct userID");
-                var userid = result.rows[0].id;
-                console.log("userid to insert" + result.rows.id);
-                /****************************************************************************
-                * Execute another sql statement to insert the character to the database 
-                *****************************************************************************/
-                var sql = "INSERT into characters (avatarname, posx, posy, imgpath, userid, gameid) VALUES ($1::text, $2::int, $3::int, $4::text, $5::int, $6::int);"
-                var params = [characterName, 0, 0, imgPath, userid, 0];
-        
-                pool.query(sql, params, function(err, result) {
-                    if (err) {
-                        console.log("Failed to add Character to db;");
-                        callback("failed to add character to database " + err, null);
-                    } else {
-                        console.log("added character to database");
-                        callback(null, result.rows);
-                    }
-                });
-            }
-        });
-    }
 
 /* /getGameCharacters – gets all the characters that have enrolled in this game. (via session variable or another table?) */
     app.get('/getGameCharacters', function (req, res) {
