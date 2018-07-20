@@ -55,8 +55,8 @@
                         // gameboard.addEventListener("click", getClickPosition, false);
 
                     },
-                    error: function(data) {
-                        alert('could not get current game characters DATA: ' + data);
+                    error: function(err) {
+                        alert('could not get current game characters DATA: ' + err);
                     }
                 });
 
@@ -71,7 +71,7 @@
                 charactername = result.avatarname
             },
             error: function(err) {
-                alert('Couldn\'t get your characterName: ' + data);
+                alert('Couldn\'t get your characterName: ' + err);
 
             }
         });

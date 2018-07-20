@@ -222,7 +222,7 @@ app.get('/getcharactername', function(req, res) {
 
             // }
             var sql = "Select avatarname from characters where userid = $1::int and gameid = $2::int"
-            params[result.rows[0].id, gameid]
+            var params = [result.rows[0].id, gameid]
 
             pool.query(sql, params, function(err, result) {
                 if (err) {
