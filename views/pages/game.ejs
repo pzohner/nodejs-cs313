@@ -84,13 +84,12 @@
                                             "posx": xPox,
                                             "posy": yPos,
                                         },
-                        
                                         success: function(data){
                                             alert("updated the coordinates of " + charactername + " to x=" + xpos + " and y= " + ypos)
-                                        }
+                                        },
                                         error: function(err){
                                             alert("coudlnt update coordinates");
-                                        }
+                                        },
                                     });
                                     // $.post("updatecoordinates.php", data);
                         
