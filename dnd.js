@@ -212,14 +212,14 @@ app.get('/getcharactername', function(req, res) {
 
     pool.query(sql, params, function(err, result) {
         if (err) {
-            res.status(500).send("we couldn't get your userID" + err);
+            res.status(500).json({"error" : "we couldn't get your userID" + err});
         } else {
             var sql = "Select avatarname from characters where userid = $1::int and gameid = $2::int"
             params[result.id, gameid]
 
             pool.query(sql, params, function(err, result) {
                 if (err) {
-                    res.status(500).send("couldn't get charactername" + err)
+                    res.status(500).json({"error": "couldn't get charactername" + err})
                 } else {
                     res.status(200).json({"avatarname": result.avatarname})
                 }

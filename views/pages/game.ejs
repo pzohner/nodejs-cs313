@@ -45,14 +45,14 @@
                     //    alert(JSON.stringify(result));
                     for (var i = 0; i < result.length; i++) {
                         // switch this to images
-                        $('#gameboard').append('<div id="' + result[i].userid + '"> <img src="' + result[i].imgpath + '" height="50" width="25">' + result[i].avatarname + '</div>')     
+                        $('#gameboard').append('<div id="' + result[i].avatarname + '"> <img src="' + result[i].imgpath + '" height="50" width="25">' + result[i].avatarname + '</div>')     
                     }
-                        var characterID =  + character;
-                        var gameboard = document.querySelector("#gameboard");
-                        var character = document.querySelector(charactername);
+                        // var characterID =  + character;
+                        // var gameboard = document.querySelector("#gameboard");
+                        // var character = document.querySelector(charactername);
 
 
-                        gameboard.addEventListener("click", getClickPosition, false);
+                        // gameboard.addEventListener("click", getClickPosition, false);
 
                     },
                     error: function(data) {
