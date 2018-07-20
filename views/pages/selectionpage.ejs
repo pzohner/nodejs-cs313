@@ -22,7 +22,7 @@
                 for (var i = 0; i < data.length; i++)
                     $('#listOfCharacters').append(
                         '<div> <input type="radio" name="player-selection" class="characterradio" value="' + data[i].avatarname + '">' +
-                        data[i].avatarname + '</div>')
+                        data[i].avatarname + '<img src=' + data[i].imgpath + 'height="100" width="50"> </div>')
             },
             error: function (data) {
                 alert('could not get the characters');

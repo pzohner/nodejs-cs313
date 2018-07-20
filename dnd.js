@@ -84,7 +84,6 @@ app.post('/uploadcharacterimg', function(req, res) {
   /***************************************************
  *  addCharacter - adds a character to the database 
  * *************************************************/
-
 app.post('/addCharacter', function (req, res) {
     var characterName = req.body.avatarname;
     let characterpic = req.files.characterpic;
@@ -112,18 +111,6 @@ app.post('/addCharacter', function (req, res) {
             res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully", "result" : result});
         }
     });
-   
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    // console.log("character pic" + characterpic)
-    // console.log("characterpic filename" + characterpic.name)
-
-    // Use the mv() method to place the file somewhere on your server - I prefer to use the full path
-    
-
-
-
-
-    
   
 });
 
