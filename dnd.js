@@ -228,7 +228,7 @@ app.get('/getcharactername', function(req, res) {
                 if (err) {
                     res.status(500).json({"error": "couldn't get charactername" + err})
                 } else {
-                    res.status(200).json({"avatarname": result.avatarname})
+                    res.status(200).json({"avatarname": result.rows[0].avatarname})
                 }
             })
             // res.status(200).json({"userid" : result.id})
