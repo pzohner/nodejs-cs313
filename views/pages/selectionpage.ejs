@@ -20,9 +20,18 @@
                 //    alert("Got the characters!");
                 //    alert(JSON.stringify(data));
                 for (var i = 0; i < data.length; i++)
-                    $('#listOfCharacters').append(
-                        '<div> <input type="radio" name="player-selection" class="characterradio" value="' + data[i].avatarname + '">' +
-                        data[i].avatarname + '<img src="' + data[i].imgpath + '" height="100" width="50"> </div>')
+
+    //             <div class="character-list"> 
+    //     <div class="character-selection-layout"> <input type="radio" name="player-selection" class="characterradio" value="human-necro"></div> 
+    //     <div class="character-selection-layout2"> joe </div>     
+    //     <div class="character-selection-layout"> <img src="images/human-necro.png" height="100" width="50"> </div>
+    // </div>
+    $('#listOfCharacters').append(
+        '<div class="character-list">\
+        <div class="character-selection-layout"> <input type="radio" name="player-selection" class="characterradio" value="' + data[i].avatarname + '"> </div>\
+        <div class="character-selection-layout">' + data[i].avatarname + '</div>\
+        <div class="character-selection-layout"> <img src="' + data[i].imgpath + '" height="100" width="50"> </div>\
+        </div>')
             },
             error: function (data) {
                 alert('could not get the characters');

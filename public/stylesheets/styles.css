@@ -84,6 +84,13 @@ background-image: url(../images/paper.jpg);
     background-image: url(../images/paper.jpg);
 }
 
+.character-selection-layout{
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 #character-selection:hover {
     opacity: 1;
     transition-duration: 1s;
@@ -181,3 +188,27 @@ html, #gameboard, main {
     display: flex;
     flex-direction:column;
  }
+
+
+ .character-selection-layout {
+    float: left;
+    width: 10%;
+}
+
+.character-selection-layout2 {
+    float: left;
+    width: 33.33%;
+}
+
+.character-list{
+ content: "";
+display: table;
+clear:both;
+width: 500px;
+}
+
+#listOfCharacters {
+content: "";
+display: table;
+clear:both;
+}

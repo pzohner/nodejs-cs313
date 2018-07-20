@@ -49,17 +49,12 @@
                     for (var i = 0; i < result.length; i++)
                     
                         // switch this to images
-                        $('#gameboard').append('<div> <img src="' + result[i].imgpath + '" height="100" width="50">' + result[i].avatarname + '</div>')     
+                        $('#gameboard').append('<div> <img src="' + result[i].imgpath + '" height="50" width="25">' + result[i].avatarname + '</div>')     
                     },
                     error: function(data) {
                         alert('could not get current game characters DATA: ' + data);
                     }
                 });
-
-                
-
-
-
 
 });
 </script>
