@@ -1,65 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- <link rel="stylesheet" type="text/css" href="public/stylesheets/styles.css" /> -->
-    <style>
-        .character-selection-layout {
-           float: left;
-           width: 10%;
-    }
+        <style>
+        #loginform {
+            display: flex;
+            flex-direction: column;
+            border-style: ridge;
+            margin: auto;
+            width: 300px;
+            padding: 25px;
+        }
 
-     .character-selection-layout2 {
-           float: left;
-           width: 33.33%;
-    }
+        #loginform span {
+            margin-bottom: 10px;    
+        }
 
-     /* .character-selection-layout {
-           float: left;
-           width: 20%;
-    } */
+        #loginform input {
+            margin-bottom: 10px;
+        }
 
-    .character-list{
-        content: "";
-       display: table;
-       clear:both;
-       width: 500px;
-    }
-
-    #listOfCharacters {
-       content: "";
-       display: table;
-       clear:both;
-    }
-    
+        #loginbutton {
+            background-color: orange;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="listOfCharacters">
-    <div class="character-list"> 
-        <div class="character-selection-layout"> <input type="radio" name="player-selection" class="characterradio" value="human-necro"></div> 
-        <div class="character-selection-layout2"> joe </div>     
-        <div class="character-selection-layout"> <img src="images/human-necro.png" height="100" width="50"> </div>
-    </div>
-
-    <div class="character-list"> 
-            <div class="character-selection-layout"> <input type="radio" name="player-selection" class="characterradio" value="human-necro"></div> 
-            <div class="character-selection-layout2"> characterName </div>     
-            <div class="character-selection-layout"> <img src="images/human-necro.png" height="100" width="50"> </div>
-    </div>
-
+        <form id='loginform'> 
+                <span> Please log in or... <span style="font-size: 12px" >create an account</span> </span> <br>
+                Username: <input type="text" name='username' value='porter'>
+                Password: <input type="password" name='password' value='myPassword'>
         
-    <div class="character-list"> 
-            <div class="character-selection-layout"> <input type="radio" name="player-selection" class="characterradio" value="human-necro"></div> 
-            <div class="character-selection-layout2"> dr. malthusen of the klugan farklugans </div>     
-            <div class="character-selection-layout"> <img src="images/human-necro.png" height="100" width="50"> </div>
-    </div>
-    
-</div>
-        <!-- <div class="character-selection-layout"> <input type="radio" name="player-selection" class="characterradio" value="human-necro"> 
-            joe<img src="images/human-necro.png" height="100" width="50"> </div>
-
-        <div class="character-selection-layout"> <input type="radio" name="player-selection" class="characterradio" value="human-necro"> 
-            ajsdlkfjasdf<img src="images/human-necro.png" height="100" width="50"> </div> -->
-    <!-- </div> -->
+                <button id="loginbutton" type="submit" > Login </button>
+                <!-- <button id="createaccountbutton" type="submit" > Create an account </button> -->
+            </form>
+            <div id="loginsuccessful"> </div>
 </body>
 </html>
