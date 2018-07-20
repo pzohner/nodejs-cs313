@@ -187,6 +187,7 @@ html, #gameboard, main {
  #listOfGames {
     display: flex;
     flex-direction:column;
+    width: 20%;
  }
 
 
@@ -205,10 +206,4 @@ html, #gameboard, main {
 display: table;
 clear:both;
 width: 500px;
-}
-
-#listOfCharacters {
-content: "";
-display: table;
-clear:both;
 }
