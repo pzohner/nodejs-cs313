@@ -19,8 +19,6 @@
         // this returns undefined, because JSON.stringify returns a list
         // alert("data is " + data["gamename"]);
 
-        
-
 
     // courtesy of https://stackoverflow.com/questions/4656843/jquery-get-querystring-from-url
     function getParameterByName(name, url) {
@@ -36,7 +34,6 @@
     $(document).ready(function() {
         // Set up the title of the page properly
         $('h1').append(data[0].gamename);
-
         
         $.ajax({
                 url: "https://pacific-reef-42179.herokuapp.com/getGameCharacters",
@@ -46,16 +43,38 @@
                 },
                 success: function(result) {
                     //    alert(JSON.stringify(result));
-                    for (var i = 0; i < result.length; i++)
-                    
+                    for (var i = 0; i < result.length; i++) {
                         // switch this to images
-                        $('#gameboard').append('<div id="' + result[i].avatarname + result[i].userid + '"> <img src="' + result[i].imgpath + '" height="50" width="25">' + result[i].avatarname + '</div>')     
+                        $('#gameboard').append('<div id="' + result[i].userid + '"> <img src="' + result[i].imgpath + '" height="50" width="25">' + result[i].avatarname + '</div>')     
+                    }
+                        var characterID =  + character;
+                        var gameboard = document.querySelector("#gameboard");
+                        var character = document.querySelector(charactername);
+
+
+                        gameboard.addEventListener("click", getClickPosition, false);
+
                     },
                     error: function(data) {
                         alert('could not get current game characters DATA: ' + data);
                     }
                 });
 
+        $.ajax({
+            url: "https://pacific-reef-42179.herokuapp.com/getcharactername",
+            type:"GET",
+            data: {
+                "gameid": data[0].id,
+            },
+            success: function(result) {
+                alert("This is the charactername I got" + result.avatarname);
+                charactername = result.avatarname
+            },
+            error: function(err) {
+                alert('Couldn\'t get your characterName: ' + data);
+
+            }
+        });
 });
 </script>
 </head>
@@ -68,6 +87,33 @@
 
         <!-- <button id="clearplayers" type="button" onclick="window.location.href='clear-characters.php\'"> Clear Players </button>'; -->
 <script>
+
+    
+    // function getClickPosition(e) {
+    //     var xPos = e.clientX - (character.offsetWidth / 2);
+    //     var yPos = e.clientY - (character.offsetHeight / 2);;
+
+    //     var translate3dValue = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+        
+    //     var data = {
+    //             x: xPos,
+    //             y: yPos
+    //         };
+    //         $.ajax({
+    //             url: "https://pacific-reef-42179.herokuapp.com/move",
+    //             type:"GET",
+    //             data {
+    //                 "userid" : userid
+    //             },
+
+
+    //         });
+    //         // $.post("updatecoordinates.php", data);
+
+    //     character.style.transform = translate3dValue;
+    // }
+
+
     // $.ajax({
     //        url: "https://pacific-reef-42179.herokuapp.com/getCurrentGame",
     //        type : "GET",

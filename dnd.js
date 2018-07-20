@@ -186,6 +186,7 @@ function addCharacterdb(characterName, imgPath, username, callback) {
 
 // When user selects start game
 app.get('/enterGame', function(req, res) {
+    // var username = session.username;
 
     var gamename = req.query.gamename;
 
@@ -201,6 +202,33 @@ app.get('/enterGame', function(req, res) {
         }
     })
 });
+
+app.get('/getcharactername', function(req, res) {
+    var username = session.username;
+    var gameid = req.query.gameid
+    
+    var sql = "Select * from users where username = $1::text"
+    var params = [username]
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            res.status(500).send("we couldn't get your userID" + err);
+        } else {
+            var sql = "Select avatarname from characters where userid = $1::int and gameid = $2::int"
+            params[result.id, gameid]
+
+            pool.query(sql, params, function(err, result) {
+                if (err) {
+                    res.status(500).send("couldn't get charactername" + err)
+                } else {
+                    res.status(200).json({"avatarname": result.avatarname})
+                }
+            })
+            // res.status(200).json({"userid" : result.id})
+        }
+    });
+});
+
 // if GET method on login, display login page
 app.route('/login')
     .get(function(req, res) {
