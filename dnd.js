@@ -218,7 +218,7 @@ app.get('/getcharactername', function(req, res) {
         } else {
 
             // for (var i = 0; i < result.rows.length; i++) {
-            console.log("the result of the first userid query is " + result[0].id;)
+            console.log("the result of the first userid query is " + result[0].id)
 
             // }
             var sql = "Select avatarname from characters where userid = $1::int and gameid = $2::int"
