@@ -208,17 +208,21 @@ app.get('/getcharactername', function(req, res) {
     var gameid = req.query.gameid
     console.log("The username is " + username)
 
-    var sql = "Select * from users where username = $1::text"
+    var sql = "select * from users where username = $1::text"
     var params = [username]
 
     pool.query(sql, params, function(err, result) {
-        console.log("the result of the first userid query is " + result.id)
 
         if (err) {
             res.status(500).json({"error" : "we couldn't get your userID" + err});
         } else {
+            for (var i = 0; i < result.rows.length; i++) {
+               id = result[i].id;
+                console.log("the result of the first userid query is " + id)
+
+            }
             var sql = "Select avatarname from characters where userid = $1::int and gameid = $2::int"
-            params[result.id, gameid]
+            params[id, gameid]
 
             pool.query(sql, params, function(err, result) {
                 if (err) {
