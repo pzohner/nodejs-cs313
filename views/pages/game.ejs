@@ -35,6 +35,8 @@
         // Set up the title of the page properly
         $('h1').append(data[0].gamename);
         
+       
+
         $.ajax({
                 url: "https://pacific-reef-42179.herokuapp.com/getGameCharacters",
                 type : "GET",
@@ -47,12 +49,59 @@
                         // switch this to images
                         $('#gameboard').append('<div id="' + result[i].avatarname + '"> <img src="' + result[i].imgpath + '" height="50" width="25">' + result[i].avatarname + '</div>')     
                     }
-                        // var characterID =  + character;
-                        // var gameboard = document.querySelector("#gameboard");
-                        // var character = document.querySelector(charactername);
 
+                    $.ajax({
+                        url: "https://pacific-reef-42179.herokuapp.com/getcharactername",
+                        type:"GET",
+                        data: {
+                            "gameid": data[0].id,
+                        },
+                        success: function(result) {
+                            alert("This is the charactername I got " + result.avatarname);
+                            charactername = result.avatarname;
 
-                        // gameboard.addEventListener("click", getClickPosition, false);
+                            // var charactername =  + character;
+                            var gameboard = document.querySelector("#gameboard");
+                            // var character = document.querySelector(charactername);
+
+                            gameboard.addEventListener("click", getClickPosition, false);
+
+                            function getClickPosition(e) {
+                                var xPos = e.clientX - (charactername.offsetWidth / 2);
+                                var yPos = e.clientY - (charactername.offsetHeight / 2);;
+                        
+                                var translate3dValue = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+                                
+                                // var data = {
+                                //         x: xPos,
+                                //         y: yPos
+                                //     };
+                                    $.ajax({
+                                        url: "https://pacific-reef-42179.herokuapp.com/move",
+                                        type:"GET",
+                                        data: {
+                                            "characterName" : charactername,
+                                            "posx": xPox,
+                                            "posy": yPos,
+                                        },
+                        
+                                        success: function(data){
+                                            alert("updated the coordinates of " + charactername + " to x=" + xpos + " and y= " + ypos)
+                                        }
+                                        error: function(err){
+                                            alert("coudlnt update coordinates");
+                                        }
+                                    });
+                                    // $.post("updatecoordinates.php", data);
+                        
+                                character.style.transform = translate3dValue;
+                            }
+                        },
+                        error: function(err) {
+                            alert('Couldn\'t get your characterName: ' + err);
+                        }
+                    });
+                        
 
                     },
                     error: function(err) {
@@ -60,21 +109,7 @@
                     }
                 });
 
-        $.ajax({
-            url: "https://pacific-reef-42179.herokuapp.com/getcharactername",
-            type:"GET",
-            data: {
-                "gameid": data[0].id,
-            },
-            success: function(result) {
-                alert("This is the charactername I got" + result.avatarname);
-                charactername = result.avatarname
-            },
-            error: function(err) {
-                alert('Couldn\'t get your characterName: ' + err);
-
-            }
-        });
+        
 });
 </script>
 </head>
@@ -89,29 +124,7 @@
 <script>
 
     
-    // function getClickPosition(e) {
-    //     var xPos = e.clientX - (character.offsetWidth / 2);
-    //     var yPos = e.clientY - (character.offsetHeight / 2);;
-
-    //     var translate3dValue = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-        
-    //     var data = {
-    //             x: xPos,
-    //             y: yPos
-    //         };
-    //         $.ajax({
-    //             url: "https://pacific-reef-42179.herokuapp.com/move",
-    //             type:"GET",
-    //             data {
-    //                 "userid" : userid
-    //             },
-
-
-    //         });
-    //         // $.post("updatecoordinates.php", data);
-
-    //     character.style.transform = translate3dValue;
-    // }
+    
 
 
     // $.ajax({
