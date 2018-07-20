@@ -216,6 +216,7 @@ app.get('/getcharactername', function(req, res) {
         if (err) {
             res.status(500).json({"error" : "we couldn't get your userID" + err});
         } else {
+            
             // for (var i = 0; i < result.rows.length; i++) {
                id = result[0].id;
                 console.log("the result of the first userid query is " + id)
