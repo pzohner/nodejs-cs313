@@ -585,6 +585,9 @@ app.get('/move', function(req, res) {
     var characterName = req.query.characterName;
     var posy = req.query.posy;
     var posx = req.query.posx;
+    console.log("characterName" + characterName);
+    console.log("posx" + posx);
+    console.log("posy" + posy);
 
     moveCharacter (characterName, posx, posy, function (err, result) {
         if (err) {
