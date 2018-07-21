@@ -164,6 +164,7 @@ app.post('/addGame', function (req, res) {
     console.log("files to be uploaded " + req.files.tablepic)
     console.log("name of file" + req.files.tablepic.name)
 
+    
     imgPath = "images/" + tablepic.name
     // grab username from the session (easier than passing it with the query strings)
     addGamedb(gamename, imgPath, username, function (err, result) {
