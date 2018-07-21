@@ -167,13 +167,13 @@ app.post('/addGame', function (req, res) {
     imgPath = "images/" + tablepic.name
     // grab username from the session (easier than passing it with the query strings)
     addGamedb(gamename, imgPath, username, function (err, result) {
-        characterpic.mv('/app/public/images/' + tablepic.name, function(err) {
+        tablepic.mv('/app/public/images/' + tablepic.name, function(err) {
             if (err)
               return res.status(500).send("Problem uploading image " + err);
           });
 
         if (err) {
-            res.status(500).send("Character couldn't be put into database");
+            res.status(500).send("game couldn't be put into database");
         } 
         else if (!req.files) {
             res.status(500).send("No files were sent to server");
@@ -204,7 +204,7 @@ function addGamedb(gamename, imgPath, username, callback) {
             var userid = result.rows[0].id;
             console.log("userid to insert" + result.rows.id);
             /****************************************************************************
-            * Execute another sql statement to insert the character to the database 
+            * Execute another sql statement to insert the game to the database 
             *****************************************************************************/
             var sql = "INSERT into games (gamename, tableimgpath) VALUES ($1::text, $2::text);"
             var params = [gamename, imgPath];
