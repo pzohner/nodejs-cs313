@@ -309,14 +309,14 @@
                     <h4 class="modal-title">Create a DM Profile</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="createDMProfileForm" enctype="multipart/form-data">
+                    <form id="createDMProfileForm" enctype="multipart/form-data" method="get" action="https://pacific-reef-42179.herokuapp.com/addDM">
                         Dungeon Master's name:
                         <input type="text" name='dmName'>
                         <br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                    <button id='createDMProfileModal' type="submit" class="btn btn-success" data-dismiss="modal">Create Character</button>
+                    <button id='createDMProfileModal' type="submit" class="btn btn-success" data-dismiss="modal">Create DM Profile</button>
                     </form>
                 </div>
             </div>
@@ -355,26 +355,26 @@
     // <button id="enterGame" type="button" > Enter Game </button><br>
 
     // $('#createCharacterButtonModal').click(function() {
-    $('#createDMProfileForm').submit(function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: "https://pacific-reef-42179.herokuapp.com/addDM",
-            type: "POST",
-            data: {
-                "dmName": $('[name="dmname"]').val(),
-            },
-            statusCode: {
-                500: function (res) {
-                    alert("Server error: " + JSON.stringify(res));
-                },
-                200: function (res) {
-                    alert("successfully added DM to database");
-                    alert(JSON.stringify(res));
+    // $('#createDMProfileForm').submit(function (event) {
+    //     event.preventDefault();
+    //     $.ajax({
+    //         url: "https://pacific-reef-42179.herokuapp.com/addDM",
+    //         type: "POST",
+    //         data: {
+    //             "dmName": $('[name="dmname"]').val(),
+    //         },
+    //         statusCode: {
+    //             500: function (res) {
+    //                 alert("Server error: " + JSON.stringify(res));
+    //             },
+    //             200: function (res) {
+    //                 alert("successfully added DM to database");
+    //                 alert(JSON.stringify(res));
 
-                }
-            }
-        });
-    });
+    //             }
+    //         }
+    //     });
+    // });
 
     // $('#dm-creation-btn').click(function() {
     //     $.ajax({

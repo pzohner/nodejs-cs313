@@ -582,7 +582,8 @@ app.get('/addDM', function(req, res) {
                 if (err) {
                     res.status(500).send(err);
                 } else (
-                    res.status(200).send("Successfully added dm" + dmname + " to the database")
+                    res.render('pages/selectionpage')
+                    // res.status(200).send("Successfully added dm" + dmname + " to the database")
                 )
             });
         }
