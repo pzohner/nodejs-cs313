@@ -34,7 +34,7 @@
     $(document).ready(function() {
         // Set up the title of the page properly
         $('h1').append(data[0].gamename);
-        
+        $('body').style(background, data[0].tableimgpath)
        
 
         $.ajax({
@@ -107,7 +107,7 @@
 });
 </script>
 </head>
-<body id="gameboard" background=<% data[0].tableimgpath %>>
+<body id="gameboard" >
             <h1></h1> <!-- Edited by Jquery in $(document).ready-->
             
         <!-- <img id="character' . $users['username'] . '" src="' . $row['imgpath'] . '" style="transform: translate3d(' . $row['posx'] . 'px,' . $row['posy'] . 'px, 0px)"> -->
