@@ -164,7 +164,7 @@ app.post('/addGame', function (req, res) {
     console.log("files to be uploaded " + req.files.tablepic)
     console.log("name of file" + req.files.tablepic.name)
 
-    
+
     imgPath = "images/" + tablepic.name
     // grab username from the session (easier than passing it with the query strings)
     addGamedb(gamename, imgPath, username, function (err, result) {
@@ -295,7 +295,7 @@ app.get('/getcharactername', function(req, res) {
             // }
             var sql = "Select avatarname from characters where userid = $1::int and gameid = $2::int"
             var params = [result.rows[0].id, gameid]
-
+ 
             pool.query(sql, params, function(err, result) {
                 if (err) {
                     res.status(500).json({"error": "couldn't get charactername" + err})
