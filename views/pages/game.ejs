@@ -34,7 +34,7 @@
     $(document).ready(function() {
         // Set up the title of the page properly
         $('h1').append(data[0].gamename);
-        $('body').style(background, data[0].tableimgpath)
+        $('body').css('background-image', data[0].tableimgpath)
        
 
         $.ajax({
