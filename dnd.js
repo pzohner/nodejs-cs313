@@ -88,6 +88,7 @@ app.post('/addCharacter', function (req, res) {
     var characterName = req.body.avatarname;
     let characterpic = req.files.characterpic;
     var username = session.username;
+    console.log("adding character under username: " + username)
 
     console.log("Name of character to be put into the database: " + characterName)
     console.log("files to be uploaded " + req.files.characterpic)
