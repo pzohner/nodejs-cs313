@@ -109,7 +109,7 @@ app.post('/addCharacter', function (req, res) {
             res.status(500).send("No files were sent to server");
             
         } else {
-            res.redirect('pages/selectionpage');
+            res.redirect('/selectionpage');
             
             // res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully", "result" : result});
         }
