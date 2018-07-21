@@ -10,7 +10,8 @@
         Username: <input type="text" name='username' value='porter'>
         Password: <input type="password" name='password' value='myPassword'>
 
-        <button id="loginbutton" type="submit" > Login </button>
+
+        <button id="loginbutton" type="submit" data-toggle="modal" data-target="#login-successful-modal"> Login </button>
         <!-- <button id="createaccountbutton" type="submit" > Create an account </button> -->
     </form>
     <div id="loginsuccessful"> </div>
@@ -22,7 +23,7 @@ $('#loginform').submit(function(event){
     $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res, status) {
         if (status == 'success') {
             $('#loginsuccessful').append(res.success);
-
+            
             setTimeout(function() {
                 $(location).attr('href', 'https://pacific-reef-42179.herokuapp.com/selectionpage')
             }, 2000);
@@ -36,6 +37,25 @@ $('#loginform').submit(function(event){
     });
 });
 
+// Create Character Modal
+    <div class="modal fade" id="login-successful-modal" role="dialog">
+        <div class="modal-dialog">
+        
+            <!-- Modal content--> 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login Successful</h4>
+                </div>
+                <div class="modal-body">
+                    redirecting...
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+
+        </div>
+    </div>
 </script>
 <!-- <% include ../partials/nav.ejs %> -->
 
