@@ -28,7 +28,7 @@ $('#loginform').submit(function(event){
     var data = $('#loginform').serialize();
     $.post('https://pacific-reef-42179.herokuapp.com/login', data, function(res, status) {
         if (status == 'success') {
-            $('#loginsuccessful').append(res.success);
+            // $('#loginsuccessful').append(res.success);
             $('#login-successful-modal').modal('show');
             setTimeout(function() {
                 $(location).attr('href', 'https://pacific-reef-42179.herokuapp.com/selectionpage')
