@@ -129,9 +129,9 @@ function addCharacterdb(characterName, imgPath, username, callback) {
 
             // If we were able to find the correct username and ID, then 
         } else {
-            console.log("Got the correct userID");
             var userid = result.rows[0].id;
-            console.log("userid to insert" + result.rows.id);
+            console.log("Got the correct userID: " + userid);
+            // console.log("userid to insert" + result.rows[0].id);
             /****************************************************************************
             * Execute another sql statement to insert the character to the database 
             *****************************************************************************/
@@ -281,7 +281,7 @@ app.get('/getcharactername', function(req, res) {
     var gameid = req.query.gameid
     console.log("The username is " + username)
     console.log("The gameid is " + gameid)
- 
+
     var sql = "select * from users where username = $1::text"
     var params = [username]
 
@@ -452,9 +452,9 @@ app.get('/getDMs', function(req, res) {
 
             // If we were able to find the correct username and ID, then 
         } else {
-            console.log("Got the correct userID");
             // var userid = result.rows.id;
             var userid = result.rows[0].id;
+            console.log("Got the correct userID: " + userid);
 
 
             var sql = "SELECT * from dm where userid = $1::int;";
@@ -570,9 +570,9 @@ app.get('/addDM', function(req, res) {
 
             // If we were able to find the correct username and ID, then 
         } else {
-            console.log("Got the correct userID");
             var userid = result.rows[0].id;
-            console.log("userid to insert" + result.rows.id);
+            console.log("Got the correct userID");
+            console.log("userid to insert" + result.rows[0].id);
 
             // created sql statement and assign parameters
             var sql = "INSERT INTO dm (dmname, userid) VALUES ($1::text, $2::int)";
