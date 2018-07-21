@@ -68,7 +68,7 @@
 
                             function getClickPosition(e) {
                                 var xPos = e.clientX - (character.offsetWidth / 2);
-                                var yPos = e.clientY - (character.offsetHeight / 2);;
+                                var yPos = e.clientY - (character.offsetHeight / 2 + 100);;
                         
                                 var translate3dValue = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
                                 character.style.transform = translate3dValue;
@@ -83,10 +83,10 @@
                                         data: {
                                             "characterName" : charactername,
                                             "posx": parseInt(xPos),
-                                            "posy": parseInt(yPos),
+                                            "posy": parseInt(yPos)  ,
                                         },
                                         success: function(data){
-                                            alert("updated the coordinates of " + charactername + " to x=" + xPos + " and y= " + yPos)
+                                            // alert("updated the coordinates of " + charactername + " to x=" + xPos + " and y= " + yPos)
                                         },
                                         error: function(err){
                                             alert("coudlnt update coordinates");
