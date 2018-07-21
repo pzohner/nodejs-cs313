@@ -47,7 +47,7 @@
                     //    alert(JSON.stringify(result));
                     for (var i = 0; i < result.length; i++) {
                         // switch this to images
-                        $('#gameboard').append('<img id="' + result[i].avatarname + '" src="' + result[i].imgpath + '" style="transform: translate3d(' + result[i].posx + 'px,' + result[i].posy + 'px, 0px)">' + result[i].avatarname)     
+                        $('#gameboard').append('<img id="' + result[i].avatarname + '" src="' + result[i].imgpath + '" style="width:50px; height:50px;transform: translate3d(' + result[i].posx + 'px,' + result[i].posy + 'px, 0px)">' + result[i].avatarname)     
                     }
 
                     $.ajax({
@@ -68,8 +68,8 @@
                             function getClickPosition(e) {
                                 // 
                                 // 
-                                var xPos = (e.clientX - (character.offsetWidth/2)) + 25;
-                                var yPos = (e.clientY - (character.offsetHeight/2)) - 75;
+                                var xPos = (e.clientX - (character.offsetWidth/2)) +15;
+                                var yPos = (e.clientY - (character.offsetHeight/2)) - 65;
                         
                                 var translate3dValue = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
                                 character.style.transform = translate3dValue;
