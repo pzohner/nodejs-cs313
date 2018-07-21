@@ -150,6 +150,77 @@ function addCharacterdb(characterName, imgPath, username, callback) {
         }
     });
 }
+
+
+/***************************************************
+ *  addGame - adds a character to the database 
+ * *************************************************/
+app.post('/addGame', function (req, res) {
+    var gamename = req.body.gamename;
+    let tablepic = req.files.tablepic;
+    var username = session.username;
+
+    console.log("Name of game to be put into the database: " + gamename)
+    console.log("files to be uploaded " + req.files.tablepic)
+    console.log("name of file" + req.files.tablepic.name)
+
+    imgPath = "images/" + tablepic.name
+    // grab username from the session (easier than passing it with the query strings)
+    addGamedb(gamename, imgPath, username, function (err, result) {
+        characterpic.mv('/app/public/images/' + tablepic.name, function(err) {
+            if (err)
+              return res.status(500).send("Problem uploading image " + err);
+          });
+
+        if (err) {
+            res.status(500).send("Character couldn't be put into database");
+        } 
+        else if (!req.files) {
+            res.status(500).send("No files were sent to server");
+            
+        } else {
+            res.render('pages/selectionpage');
+            // res.status(200).json({"success": "File " + characterpic.name + " was uploaded successfully", "result" : result});
+        }
+    });
+  
+});
+
+function addGamedb(gamename, imgPath, username, callback) {
+
+    // Get the correct userid
+    var sql ="SELECT id from users where username = $1::text";
+
+    var params = [username];
+
+    pool.query(sql, params, function(err, result) {
+        if (err) {
+            console.log("Couldn't get the correct userID");
+            callback("failed to get correct userid " + err, null);
+
+            // If we were able to find the correct username and ID, then 
+        } else {
+            console.log("Got the correct userID");
+            var userid = result.rows[0].id;
+            console.log("userid to insert" + result.rows.id);
+            /****************************************************************************
+            * Execute another sql statement to insert the character to the database 
+            *****************************************************************************/
+            var sql = "INSERT into games (gamename, tableimgpath) VALUES ($1::text, $2::text);"
+            var params = [gamename, imgPath];
+    
+            pool.query(sql, params, function(err, result) {
+                if (err) {
+                    console.log("Failed to add game to db;");
+                    callback("failed to add game to database " + err, null);
+                } else {
+                    console.log("added game to database");
+                    callback(null, result.rows);
+                }
+            });
+        }
+    });
+}
 // app.post(
 //     "/uploadcharacterimg",upload.single("characterpic" /* name attribute of <file> element in your form */),
 //     (req, res) => {
