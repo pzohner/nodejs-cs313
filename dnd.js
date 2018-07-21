@@ -261,6 +261,7 @@ app.get('/enterGame', function(req, res) {
     // var username = session.username;
 
     var gamename = req.query.gamename;
+    console.log("gamename I am looking for: " + gamename)
 
     var sql = "SELECT * from games where gamename = $1::text;";
     var params = [gamename];
