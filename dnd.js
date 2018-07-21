@@ -281,7 +281,7 @@ app.get('/getcharactername', function(req, res) {
     var gameid = req.query.gameid
     console.log("The username is " + username)
     console.log("The gameid is " + gameid)
-
+ 
     var sql = "select * from users where username = $1::text"
     var params = [username]
 
