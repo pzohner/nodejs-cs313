@@ -553,9 +553,10 @@ app.get('/addNPC', function(req, res) {
 
 /* addDM - adds a new user */
 app.get('/addDM', function(req, res) {
+    console.log("called /addDM");
     // grab the username and password (password better be encrypted)
     dmname = req.query.dmname;
-    userid = req.query.userid;
+    // userid = req.query.userid;
     var username = session.username;
     // Get the correct userid
     var sql ="SELECT id from users where username = $1::text";
