@@ -4,7 +4,11 @@
   <% include ../partials/header.ejs %>
 
 </head>
-
+<script>
+    $(document).ready(function () {
+        $('#login-successful-modal').hide();
+    })
+</script>
 <body>
     <form id='loginform'> 
         <span> Please log in or... <span style="font-size: 12px" >create an account</span> </span> <br>
