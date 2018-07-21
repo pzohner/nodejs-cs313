@@ -60,30 +60,25 @@
                             alert("This is the charactername I got " + result.avatarname);
                             charactername = result.avatarname;
 
-                            // var charactername =  + character;
                             var gameboard = document.querySelector("#gameboard");
                             var character = document.getElementById(charactername);
 
                             gameboard.addEventListener("click", getClickPosition, false);
 
                             function getClickPosition(e) {
-                                var xPos = e.clientX - (character.offsetWidth / 2 - 100);
-                                var yPos = e.clientY - (character.offsetHeight / 2 - 100);;
+                                var xPos = e.clientX - (character.offsetWidth / 2);
+                                var yPos = e.clientY - (character.offsetHeight / 2);
                         
                                 var translate3dValue = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
                                 character.style.transform = translate3dValue;
                                 
-                                // var data = {
-                                //         x: xPos,
-                                //         y: yPos
-                                //     };
                                     $.ajax({
                                         url: "https://pacific-reef-42179.herokuapp.com/move",
                                         type:"GET",
                                         data: {
                                             "characterName" : charactername,
                                             "posx": parseInt(xPos),
-                                            "posy": parseInt(yPos)  ,
+                                            "posy": parseInt(yPos),
                                         },
                                         success: function(data){
                                             // alert("updated the coordinates of " + charactername + " to x=" + xPos + " and y= " + yPos)
@@ -92,7 +87,6 @@
                                             alert("coudlnt update coordinates");
                                         },
                                     });
-                                    // $.post("updatecoordinates.php", data);
                         
                             }
                         },
