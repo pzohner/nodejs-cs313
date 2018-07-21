@@ -29,7 +29,7 @@ $('#loginform').submit(function(event){
                 $(location).attr('href', 'https://pacific-reef-42179.herokuapp.com/selectionpage')
             }, 2000);
             // alert("The server says" + JSON.stringify(res));
-            $('#login-successful-modal').modal('hide');
+            $('#login-successful-modal').hide();
 
         } else {
             $('#loginsuccessful').append("Error, please try logging in again");
