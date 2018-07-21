@@ -201,17 +201,17 @@ html, #gameboard, main {
 
  .character-selection-layout {
     float: left;
-    width: 10%;
+    width: 25%;
 }
 
 .character-selection-layout2 {
     float: left;
-    width: 33.33%;
+    width: 50%;
 }
 
 .character-list{
  content: "";
 display: table;
 clear:both;
-width: 500px;
+width: 400px;
 }
